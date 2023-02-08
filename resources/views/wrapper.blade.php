@@ -13,9 +13,14 @@
             window.User = {!! json_encode(Auth::user()->toObject()) !!}
         @endif
     @show
+    
     <title>Document</title>
 </head>
 <body>
-
+@section('content')
+    @yield('above-container')
+    @yield('container')
+    @yield('below-container')
+@show
 </body>
 </html>
