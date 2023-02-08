@@ -13,8 +13,8 @@
             window.User = {!! json_encode(Auth::user()->toObject()) !!}
         @endif
     @show
-    
-    <title>Document</title>
+    @vite(['resources/sass/app.scss', 'resources/js/index.tsx'])
+    <title>{{ config('app.name', 'RemoteConsole') }}</title>
 </head>
 <body>
 @section('content')

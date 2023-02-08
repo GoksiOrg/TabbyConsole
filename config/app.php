@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Facade;
 
 return [
 
+    'version'=>'canary',
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -15,7 +17,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'RemoteConsole'),
 
     /*
     |--------------------------------------------------------------------------
