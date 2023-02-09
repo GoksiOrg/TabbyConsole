@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,6 +9,11 @@ use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\Authenticatable as AuthContract;
 
+
+
+/**
+ * @property bool $admin
+ */
 class User extends Model implements AuthContract
 {
     use HasApiTokens, HasFactory;
@@ -48,8 +52,11 @@ class User extends Model implements AuthContract
     ];
 
 
-    public function toObject(): array
-    {
+    public function toObject(): array {
         return Collection::make($this)->toArray();
+    }
+
+    public function isAdmin(): bool {
+        return $this->admin;
     }
 }

@@ -14,6 +14,12 @@
         @endif
     @show
     @vite(['resources/sass/app.scss', 'resources/js/index.tsx'])
+    {{--    GlobalStylesheet--}}
+    <style>
+        body {
+            background-color: #1a202c;
+        }
+    </style>
     <title>{{ config('app.name', 'RemoteConsole') }}</title>
 </head>
 <body>
