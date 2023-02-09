@@ -1,6 +1,6 @@
 import React from 'react';
 
-function LoginContainer() {
+export default function LoginContainer() {
     return (
         <div className="container">
             <div className="row justify-content-center">
@@ -14,4 +14,3 @@ function LoginContainer() {
         </div>
     );
 }
-export default LoginContainer();

@@ -10,14 +10,14 @@ interface InfoWindow extends Window {
     }
 }
 
-export function App() {
+export default function App() {
     const {User} = window as InfoWindow;
     return (
         <div className="mx-auto w-auto">
             <BrowserRouter>
                 <Routes>
                     <Route
-                        path="/login"
+                        path="/login/*"
                         element={
                             <Suspense> /*neki fallback*/
                                 <AuthRouter/>
@@ -29,6 +29,4 @@ export function App() {
         /*routes*/
     );
 }
-
-export default App();
 
