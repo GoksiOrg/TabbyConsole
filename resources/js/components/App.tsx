@@ -1,5 +1,6 @@
 import {lazy, React, Suspense} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import Loading from "./Loading";
 
 const AuthRouter = lazy(() => import("../routers/AuthRouter"))
 
@@ -19,7 +20,7 @@ export default function App() {
                     <Route
                         path="/login/*"
                         element={
-                            <Suspense> /*neki fallback*/
+                            <Suspense fallback={<Loading/>}>
                                 <AuthRouter/>
                             </Suspense>
                         }/>
