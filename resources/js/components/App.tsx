@@ -1,4 +1,7 @@
-import React from 'react';
+import {lazy, React, Suspense} from 'react';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
+
+const AuthRouter = lazy(() => import("../routers/AuthRouter"))
 
 interface InfoWindow extends Window {
     User?: {
@@ -6,20 +9,26 @@ interface InfoWindow extends Window {
         admin: boolean;
     }
 }
-export default function App() {
-    const { User } = window as InfoWindow;
+
+export function App() {
+    const {User} = window as InfoWindow;
     return (
-        <div className="container">
-            <div className="row justify-content-center">
-                <div className="col-md-8">
-                    <div className="card">
-                        <div className="card-header">Example Component</div>
-                        <div className="card-body">I'm an example component!</div>
-                    </div>
-                </div>
-            </div>
+        <div className="mx-auto w-auto">
+            <BrowserRouter>
+                <Routes>
+                    <Route
+                        path="/login"
+                        element={
+                            <Suspense> /*neki fallback*/
+                                <AuthRouter/>
+                            </Suspense>
+                        }/>
+                </Routes>
+            </BrowserRouter>
         </div>
-/*routes*/
+        /*routes*/
     );
 }
+
+export default App();
 

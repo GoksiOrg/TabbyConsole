@@ -17,6 +17,7 @@
     <title>{{ config('app.name', 'RemoteConsole') }}</title>
 </head>
 <body>
+<noscript>You need JavaScript to run this app !</noscript>
 @section('content')
     @yield('above-container')
     @yield('container')

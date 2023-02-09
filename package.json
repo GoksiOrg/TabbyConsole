@@ -13,6 +13,7 @@
         "postcss": "^8.1.14",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
+        "react-router-dom":"^6.8.1" ,
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.56.1",
         "laravel-vite-plugin": "^0.7.4",

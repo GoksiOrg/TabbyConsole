@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
 
 function LoginContainer() {
     return (
@@ -15,13 +14,4 @@ function LoginContainer() {
         </div>
     );
 }
-export default LoginContainer;
-
-if (document.getElementById('login-container')) {
-    const Index = ReactDOM.createRoot(document.getElementById("login-container"));
-    Index.render(
-        <React.StrictMode>
-            <LoginContainer/>
-        </React.StrictMode>
-    )
-}
+export default LoginContainer();
