@@ -10,9 +10,10 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\Authenticatable as AuthContract;
 
 
-
 /**
  * @property bool $admin
+ * @property string $username
+ * @property string $password
  */
 class User extends Model implements AuthContract
 {
