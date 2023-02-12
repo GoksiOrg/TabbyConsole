@@ -4,16 +4,21 @@ import validateInput from "../../helpers/validationHelper";
 import Alert from "./Alert";
 
 interface BackendResponse {
-    success: boolean,
-    redirect: string
+    success: boolean;
+    redirect: string;
+    error: string;
 }
 
 const passwordRegex = new RegExp('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).+$')
 
 export default function LoginContainer() {
+    const errorAlertInitial = {
+        shouldDisplay: false,
+        message: ""
+    }
     const [checked, setChecked] = useState<boolean>(false);
     const [isSubmitting, setSubmitting] = useState<boolean>(false);
-    const [shouldDisplay, setShouldDisplay] = useState<boolean>(false);
+    const [errorAlert, setErrorAlert] = useState(errorAlertInitial);
     const usernameRef = useRef(null);
     const passwordRef = useRef(null);
     const handleCheckBoxChange = () => {
@@ -21,7 +26,7 @@ export default function LoginContainer() {
     }
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => e.target.classList.remove('is-invalid');
     const login = (event: SubmitEvent) => {
-        setShouldDisplay(false);
+        setErrorAlert({shouldDisplay: false, message: ""});
         event.preventDefault();
         let inputCheck = validateInput(usernameRef.current,
             (str) => str.length >= 4 && str.length < 15);
@@ -35,13 +40,21 @@ export default function LoginContainer() {
             remember_me: checked
         }).then(result => {
             let response: BackendResponse = result.data;
-            if (response !== null && response.success) {
+            if (response.success) {
                 // @ts-ignore
                 window.location = response.redirect;
             } else {
-                setShouldDisplay(true);
+                if (!response.error) setErrorAlert({shouldDisplay: true, message: "Invalid username or password !"}) // probably refactor if we happen to have more errors
+                else if (response.error === "too_many_attempts") setErrorAlert({
+                    shouldDisplay: true,
+                    message: "Too many login attempts, try again later !"
+                })
                 usernameRef.current.value = "";
                 passwordRef.current.value = "";
+            }
+        }).catch(error => {
+            if (error.code == "ECONNABORTED") {
+                setErrorAlert({shouldDisplay: true, message: "Error while communicating with backend !"})
             }
         }).finally(() => setSubmitting(false));
     }
@@ -70,14 +83,15 @@ export default function LoginContainer() {
                 </div>
 
                 <div className="form-check mt-1">
-                    <input className="form-check-input mt-3 bg-dark border-secondary" type="checkbox" value="" id="rememberMe"
+                    <input className="form-check-input mt-3 bg-dark border-secondary" type="checkbox" value=""
+                           id="rememberMe"
                            onChange={handleCheckBoxChange} checked={checked}/>
                     <label className="form-check-label mt-3 text-white" htmlFor="rememberMe"> Remember me </label>
                 </div>
 
                 <button type="submit" className="btn btn-primary btn-block mb-4 mt-1" disabled={isSubmitting}>Sign in
                 </button>
-                <Alert shouldRender={shouldDisplay} />
+                <Alert shouldRender={errorAlert.shouldDisplay} message={errorAlert.message}/>
             </div>
         </form>
     );
