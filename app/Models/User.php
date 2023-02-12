@@ -60,4 +60,8 @@ class User extends Model implements AuthContract
     public function isAdmin(): bool {
         return $this->admin;
     }
+
+    public static function whereUsername(string $username): User {
+        return User::query()->where('username', $username)->firstOr(null);
+    }
 }
