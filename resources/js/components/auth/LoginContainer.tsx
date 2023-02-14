@@ -44,7 +44,7 @@ export default function LoginContainer() {
                 // @ts-ignore
                 window.location = response.redirect;
             } else {
-                if (!response.error) setErrorAlert({shouldDisplay: true, message: "Invalid username or password !"}) // probably refactor if we happen to have more errors
+                if (!response.error) setErrorAlert({shouldDisplay: true, message: "Invalid username or password !"})
                 else if (response.error === "too_many_attempts") setErrorAlert({
                     shouldDisplay: true,
                     message: "Too many login attempts, try again later !"
@@ -52,16 +52,15 @@ export default function LoginContainer() {
                 usernameRef.current.value = "";
                 passwordRef.current.value = "";
             }
-        }).catch(error => {
-            if (error.code == "ECONNABORTED") {
-                setErrorAlert({shouldDisplay: true, message: "Error while communicating with backend !"})
-            }
+        }).catch(() => {
+            setErrorAlert({shouldDisplay: true, message: "Error while communicating with backend !"})
         }).finally(() => setSubmitting(false));
     }
 
     return (
         <form onSubmit={login} noValidate>
             <div className='d-flex justify-content-center align-items-center vh-100 flex-column'>
+                <h1 className="mb-4">Login to continue</h1>
                 <div className="form-floating mb-4">
                     <input className="form-control bg-dark text-light" type="username" ref={usernameRef}
                            disabled={isSubmitting}
