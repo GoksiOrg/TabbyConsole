@@ -47,13 +47,11 @@ class LoginController extends Controller
         ]);
     }
 
-    public function logout(Request $request): JsonResponse
+    public function logout(Request $request): RedirectResponse
     {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return new JsonResponse([
-            'success' => true
-        ]);
+        return redirect('login');
     }
 }
