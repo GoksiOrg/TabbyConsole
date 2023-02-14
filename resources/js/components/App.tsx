@@ -2,6 +2,7 @@ import {lazy, React, Suspense} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Loading from "./Loading";
 import MainContainer from "./main/MainContainer";
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import {store} from "../states/export";
 import {StoreProvider} from "easy-peasy";
 

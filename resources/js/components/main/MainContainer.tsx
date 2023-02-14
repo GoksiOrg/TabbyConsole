@@ -1,7 +1,13 @@
 import {useStoreState} from "../../states/hook";
+import NavBar from "./NavBar";
 
 
 export default function MainContainer() {
     const name = useStoreState(store => store.user.data.username);
-    return (<h1>Hello {name}!</h1>)
+    return (
+        <>
+        <NavBar/>
+        <h1 className="mt-4">Hello {name}!</h1>
+        </>
+    );
 }
