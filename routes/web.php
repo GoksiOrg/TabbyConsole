@@ -14,12 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('main.base');
-})->middleware('auth');
+Route::middleware('auth')->group(function () {
+    Route::get('/', function () {
+        return view('main.base');
+    });
+});
 
-Route::get('login', [LoginController::class, 'index'])->name('login');
-
-Route::post('login', [LoginController::class, 'login']);
-
-Route::get('logout', [LoginController::class, 'logout']);
+Route::controller(LoginController::class)->group(function() {
+    Route::get('login', 'index')->name('login');
+    Route::post('login', 'login');
+    Route::get('logout', 'logout');
+});
