@@ -35,14 +35,19 @@ class LoginController extends Controller
             'username' => "required|min:4",
             'password' => "required|min:7|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/"
         ]);
-        $success = false;
         if (Auth::attempt($credentials, $request->input('remember_me') ?? false)) {
             $request->session()->regenerate();
-            $success = true;
             $this->clearLoginAttempts($request);
-        } else $this->incrementLoginAttempts($request);
+        } else {
+            $this->incrementLoginAttempts($request);
+            return new JsonResponse([
+                'success' => false,
+                'redirect' => "",
+                'error' => "wrong_credentials"
+            ]);
+        };
         return new JsonResponse([
-            'success' => $success,
+            'success' => true,
             'redirect' => Redirect::intended()->getTargetUrl()
         ]);
     }

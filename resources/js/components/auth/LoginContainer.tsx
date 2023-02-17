@@ -9,6 +9,11 @@ interface BackendResponse {
     error: string;
 }
 
+const errorMap = new Map<string, string>([
+    ['too_many_attempts', 'Too many login attempts, try again later !'],
+    ['wrong_credentials', 'Invalid username or password !']
+]);
+
 const passwordRegex = new RegExp('^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).+$')
 
 export default function LoginContainer() {
@@ -41,14 +46,9 @@ export default function LoginContainer() {
         }).then(result => {
             let response: BackendResponse = result.data;
             if (response.success) {
-                // @ts-ignore
-                window.location = response.redirect;
+                window.location.href = response.redirect;
             } else {
-                if (!response.error) setErrorAlert({shouldDisplay: true, message: "Invalid username or password !"})
-                else if (response.error === "too_many_attempts") setErrorAlert({
-                    shouldDisplay: true,
-                    message: "Too many login attempts, try again later !"
-                })
+                setErrorAlert({shouldDisplay: true, message: errorMap.get(response.error)});
                 usernameRef.current.value = "";
                 passwordRef.current.value = "";
             }
