@@ -1,13 +1,8 @@
 import React, {useRef, useState} from 'react';
-import http from "../../helpers/httpService";
 import validateInput from "../../helpers/validationHelper";
 import Alert from "./Alert";
+import login from "../../helpers/api/local/login";
 
-interface BackendResponse {
-    success: boolean;
-    redirect: string;
-    error: string;
-}
 
 const errorMap = new Map<string, string>([
     ['too_many_attempts', 'Too many login attempts, try again later !'],
@@ -30,7 +25,7 @@ export default function LoginContainer() {
         setChecked(!checked);
     }
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => e.target.classList.remove('is-invalid');
-    const login = (event: SubmitEvent) => {
+    const proceedLogin = (event: SubmitEvent) => {
         setErrorAlert({shouldDisplay: false, message: ""});
         event.preventDefault();
         let inputCheck = validateInput(usernameRef.current,
@@ -39,26 +34,26 @@ export default function LoginContainer() {
             (str) => str.length >= 7 && str.length < 20 && passwordRegex.test(str));
         if (!passwordCheck || !inputCheck) return;
         setSubmitting(true);
-        http.post('/login', {
+        login({
             username: usernameRef.current.value,
             password: passwordRef.current.value,
-            remember_me: checked
-        }).then(result => {
-            let response: BackendResponse = result.data;
-            if (response.success) {
-                window.location.href = response.redirect;
-            } else {
-                setErrorAlert({shouldDisplay: true, message: errorMap.get(response.error)});
-                usernameRef.current.value = "";
-                passwordRef.current.value = "";
-            }
-        }).catch(() => {
+            rememberMe: checked
+        })
+            .then(result => {
+                if (result.success) {
+                    window.location.href = result.redirect;
+                } else {
+                    setErrorAlert({shouldDisplay: true, message: errorMap.get(result.error)});
+                    usernameRef.current.value = "";
+                    passwordRef.current.value = "";
+                }
+            }).catch(() => {
             setErrorAlert({shouldDisplay: true, message: "Error while communicating with backend !"})
         }).finally(() => setSubmitting(false));
     }
 
     return (
-        <form onSubmit={login} noValidate>
+        <form onSubmit={proceedLogin} noValidate>
             <div className='d-flex justify-content-center align-items-center vh-100 flex-column'>
                 <h1 className="mb-4">Login to continue</h1>
                 <div className="form-floating mb-4">
