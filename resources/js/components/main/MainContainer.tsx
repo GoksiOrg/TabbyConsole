@@ -7,7 +7,7 @@ export default function MainContainer() {
     return (
         <>
         <NavBar/>
-        <h1 className="mt-4">Hello {name}!</h1>
+        <h1 className="d-flex justify-content-center align-content-center mt-4">Hello {name}!</h1>
         </>
     );
 }
