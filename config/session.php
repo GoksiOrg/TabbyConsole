@@ -128,7 +128,7 @@ return [
 
     'cookie' => env(
         'SESSION_COOKIE',
-        Str::slug(env('APP_NAME', 'rconsole'), '_').'_session'
+        Str::slug(env('APP_NAME', 'teddy'), '_') . '_session'
     ),
 
     /*
