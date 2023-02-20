@@ -3,17 +3,41 @@
 namespace App\Models;
 
 use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthContract;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Contracts\Auth\Authenticatable as AuthContract;
 
 
 /**
+ * App\Models\User
+ *
  * @property bool $admin
  * @property string $username
  * @property string $password
+ * @property int $id
+ * @property string|null $remember_token
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Server> $servers
+ * @property-read int|null $servers_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
+ * @property-read int|null $tokens_count
+ * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
+ * @method static Builder|User newModelQuery()
+ * @method static Builder|User newQuery()
+ * @method static Builder|User query()
+ * @method static Builder|User whereAdmin($value)
+ * @method static Builder|User whereCreatedAt($value)
+ * @method static Builder|User whereId($value)
+ * @method static Builder|User wherePassword($value)
+ * @method static Builder|User whereRememberToken($value)
+ * @method static Builder|User whereUpdatedAt($value)
+ * @method static Builder|User whereUsername($value)
+ * @mixin \Eloquent
  */
 class User extends Model implements AuthContract
 {
@@ -53,15 +77,23 @@ class User extends Model implements AuthContract
     ];
 
 
-    public function toObject(): array {
+    public function toObject(): array
+    {
         return Collection::make($this)->toArray();
     }
 
-    public function isAdmin(): bool {
+    public function isAdmin(): bool
+    {
         return $this->admin;
     }
 
-    public static function whereUsername(string $username): User {
-        return User::query()->where('username', $username)->firstOr(null);
+    public function servers(): HasMany
+    {
+        return $this->hasMany(Server::class, 'owner_id');
+    }
+
+    public function availableServers()
+    {
+
     }
 }
