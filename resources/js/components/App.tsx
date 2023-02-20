@@ -48,6 +48,11 @@ export default function App() {
                                     <AuthRouter/>
                                 </Suspense>
                             }/>
+                        <Route
+                            path="/server/:id/*"
+                            element={
+                                <Loading/>
+                            }/>
                     </Routes>
                 </BrowserRouter>
             </div>

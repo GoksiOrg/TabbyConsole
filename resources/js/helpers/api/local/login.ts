@@ -1,4 +1,5 @@
 import http from "../../httpService";
+
 export interface LoginResponse {
     success: boolean;
     redirect: string;
@@ -13,10 +14,9 @@ export interface LoginData {
 
 export default function login(data: LoginData): Promise<LoginResponse> {
     return new Promise((resolve, reject) => {
-        http.post("/login", data)
-            .then(res => {
-                return resolve(res.data);
-            })
+        http.get('/sanctum/csrf-cookie')
+            .then(() => http.post('/login', data)
+                .then(result => resolve(result.data)))
             .catch(reject);
     })
 }
