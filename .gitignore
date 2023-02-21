@@ -6,4 +6,6 @@ composer.phar
 public/assets/manifest.json
 /public/hot
 /public/build
+.phpstorm.meta.php
+_ide_helper.php
 
