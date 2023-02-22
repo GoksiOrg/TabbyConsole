@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Server;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -12,10 +13,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ServersController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
+        $perPage = $request->query('per_page', 10);
+        /**@var User $user */
         $user = $request->user();
-        $servers = $user->servers;
+        $servers = $user->availableServers()->paginate(min($perPage, 50));
+        return response()->json($servers);
     }
 
     public function store(Request $request): JsonResponse

@@ -18,9 +18,9 @@ export default function NavBar() {
                     <ul className="navbar-nav me-3 ms-auto">
                         <li className="nav-item">
                             <a className="nav-header-icon me-3" data-toggle="tooltip" title="Add server"
-                               href="/servers/add"><FontAwesomeIcon icon={faPlus} size="2x"/></a>
+                               href="/server/add"><FontAwesomeIcon icon={faPlus} size="2x"/></a>
                             <a className="text-decoration-none text-white nav-link d-block d-sm-none"
-                               href="/servers/add">Add server</a>
+                               href="/server/add">Add server</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-header-icon me-3" data-toggle="tooltip" title="Create api key"

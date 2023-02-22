@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Collection;
 use Laravel\Sanctum\HasApiTokens;
 
 
@@ -37,6 +36,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @method static Builder|User whereUsername($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subuser> $subservers
+ * @property-read int|null $subservers_count
  * @mixin \Eloquent
  */
 class User extends Model implements AuthContract
@@ -76,12 +77,6 @@ class User extends Model implements AuthContract
         'admin' => 'boolean'
     ];
 
-
-    public function toObject(): array
-    {
-        return Collection::make($this)->toArray();
-    }
-
     public function isAdmin(): bool
     {
         return $this->admin;
@@ -92,8 +87,18 @@ class User extends Model implements AuthContract
         return $this->hasMany(Server::class, 'owner_id');
     }
 
-    public function availableServers()
+    public function subservers(): HasMany
     {
+        return $this->hasMany(Subuser::class, 'user_id', 'id');
+    }
 
+    public function availableServers(): Builder
+    {
+        return Server::query()
+            ->select('servers.*')
+            ->leftJoin('subusers', 'subusers.server_id', '=', 'servers.id')
+            ->where(function (Builder $builder) {
+                $builder->where('servers.owner_id', $this->id)->orWhere('subusers.user_id', $this->id);
+            });
     }
 }
