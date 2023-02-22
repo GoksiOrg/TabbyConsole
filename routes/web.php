@@ -17,10 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('main.base');
-    });
+    })->fallback();
+    Route::get('/{frontend}', function () {
+        return view('main.base');
+    })->where('frontend', '^(?!(\/)?(api|login)).+');
 });
 
-Route::controller(LoginController::class)->group(function() {
+Route::controller(LoginController::class)->group(function () {
     Route::get('login', 'index')->name('login');
     Route::post('login', 'login');
     Route::get('logout', 'logout');
