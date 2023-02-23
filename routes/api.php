@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\ServersController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,4 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('servers')->group(function () {
     Route::get('/', [ServersController::class, 'index']);
     Route::post('/', [ServersController::class, 'store']);
+    Route::prefix('{server}')->middleware('ensure.server.access')->group(function () {
+        Route::get('resources', [ResourceController::class, 'index']);
+    });
 });

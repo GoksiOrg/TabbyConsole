@@ -34,6 +34,7 @@ class Handler extends ExceptionHandler
         'current_password',
         'password',
         'password_confirmation',
+        'secret'
     ];
 
     /**
@@ -45,6 +46,11 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+        $this->renderable(function (ServerConnectionException $exception) {
+            return response()->json([
+                'message' => $exception->getMessage()
+            ], 504);
         });
     }
 }

@@ -101,4 +101,9 @@ class User extends Model implements AuthContract
                 $builder->where('servers.owner_id', $this->id)->orWhere('subusers.user_id', $this->id);
             });
     }
+
+    /*public function hasPermission(Server $server, Permission $permission): bool
+    {
+
+    }*/
 }

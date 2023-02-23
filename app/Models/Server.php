@@ -70,4 +70,19 @@ class Server extends Model
         return Crypt::decrypt($this->secret);
     }
 
+    public function getConnectionUrl(): string
+    {
+        return "http://$this->host:$this->port";
+    }
+
+    public function users(): Builder
+    {
+        return User::query()
+            ->select('users.*')
+            ->leftJoin('subusers', 'subusers.user_id', '=', 'users.id')
+            ->where(function (Builder $builder) {
+                $builder->where('users.id', $this->owner_id)->orWhere('subusers.server_id', $this->id);
+            });
+    }
+
 }
