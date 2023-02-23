@@ -2,7 +2,6 @@ import React, {useRef, useState} from 'react';
 import validateInput from "../../helpers/validationHelper";
 import Alert from "./Alert";
 import login from "../../helpers/api/local/login";
-import {useNavigate} from "react-router-dom";
 
 
 const errorMap = new Map<string, string>([
@@ -22,7 +21,6 @@ export default function LoginContainer() {
     const [errorAlert, setErrorAlert] = useState(errorAlertInitial);
     const usernameRef = useRef(null);
     const passwordRef = useRef(null);
-    let navigate = useNavigate();
     const handleCheckBoxChange = () => {
         setChecked(!checked);
     }
@@ -43,7 +41,7 @@ export default function LoginContainer() {
         })
             .then(result => {
                 if (result.success) {
-                    navigate(result.redirect);
+                    window.location.href = result.redirect;
                 } else {
                     setErrorAlert({shouldDisplay: true, message: errorMap.get(result.error)});
                     usernameRef.current.value = "";

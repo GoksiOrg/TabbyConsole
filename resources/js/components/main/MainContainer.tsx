@@ -1,13 +1,12 @@
-import {useStoreState} from "../../states/hook";
-import NavBar from "./NavBar";
-import getServersPaginator, {ServerPaginator} from "../../helpers/api/local/getServersPaginator";
+import NavBar from "../global/NavBar";
+import getServersPaginator, {Server, ServerPaginator} from "../../helpers/api/local/getServersPaginator";
 import {useEffect, useState} from "react";
 import Loading from "../Loading";
-
+import ServerRow from "./ServerRow";
+/*TODO: paginator under rows*/
 
 export default function MainContainer() {
-    const name = useStoreState(store => store.user.data.username);
-    const [getPaginator, setPaginator] = useState<ServerPaginator>();
+    const [getPaginator, setPaginator] = useState<ServerPaginator>(undefined);
     const [isLoading, setLoading] = useState<boolean>(true);
     useEffect(() => {
         getServersPaginator().then(pag => setPaginator(pag))
@@ -20,11 +19,9 @@ export default function MainContainer() {
     return (
         <>
             <NavBar/>
-            {isLoading ? <Loading/> : Object.keys(getPaginator.data).map((obj, i) =>
-                Object.keys(getPaginator.data[obj]).map((key, i) => <span>{getPaginator.data[obj][key]} </span>)
-            )}
-
-            <h1 className="d-flex justify-content-center align-content-center mt-4">Hello {name}!</h1>
+            <div className="container d-flex justify-content-center align-items-center flex-column">
+                {isLoading ? <Loading/> : getPaginator.servers.map((server: Server) => <ServerRow {...server}/>)}
+            </div>
         </>
     );
 }

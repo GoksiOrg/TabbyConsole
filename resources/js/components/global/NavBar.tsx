@@ -1,9 +1,11 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faKey, faPlus, faRightFromBracket} from "@fortawesome/free-solid-svg-icons"
+import {useStoreState} from "../../states/hook";
 
 export default function NavBar() {
+    const name = useStoreState(state => state.user.data.username);
     return (
-        <nav className="navbar navbar-expand-sm bg-dark">
+        <nav className="navbar navbar-expand-sm bg-dark mb-3">
             <div className="container-fluid">
                 <div className="navbar-brand ">
                     <a href="/" className="text-decoration-none">
@@ -16,6 +18,9 @@ export default function NavBar() {
                      data-bs-target="#nav" alt="avatar"/>
                 <div className="collapse navbar-collapse" id="nav">
                     <ul className="navbar-nav me-3 ms-auto">
+                        <li className="nav-item d-block d-sm-none">
+                            <p className="d-flex justify-content-center align-items-center text-white mb-2">Hello {name} !</p>
+                        </li>
                         <li className="nav-item">
                             <a className="nav-header-icon me-3" data-toggle="tooltip" title="Add server"
                                href="/server/add"><FontAwesomeIcon icon={faPlus} size="2x"/></a>
@@ -29,7 +34,8 @@ export default function NavBar() {
                                href="/user/token">Create api key</a>
                         </li>
                         <li className="nav-item me-3 d-none d-sm-block">
-                            <img src="/img/avatars/male_avatar_1.png" alt="avatar"/>
+                            <img src="/img/avatars/male_avatar_1.png" alt="avatar" data-toggle="tooltip"
+                                 title={name}/>
                         </li>
                         <li className="nav-item">
                             <a className="nav-header-icon" data-toggle="tooltip" title="Logout"
