@@ -15,7 +15,7 @@ class ServersController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        $perPage = $request->query('per_page', 10);
+        $perPage = $request->query('per_page', 5);
         /**@var User $user */
         $user = $request->user();
         $servers = $user->availableServers()->paginate(min($perPage, 50));
