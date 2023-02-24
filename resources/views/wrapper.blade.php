@@ -20,7 +20,7 @@
     {{--    GlobalStylesheet--}}
     <style>
         body {
-            background-color: #1a202c;
+            background-color: #172642;
             color: white;
         }
     </style>

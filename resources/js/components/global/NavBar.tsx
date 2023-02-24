@@ -5,7 +5,7 @@ import {useStoreState} from "../../states/hook";
 export default function NavBar() {
     const name = useStoreState(state => state.user.data.username);
     return (
-        <nav className="navbar navbar-expand-sm bg-dark mb-3">
+        <nav className="navbar navbar-expand-sm mb-3" style={{backgroundColor: "#1a202c"}}>
             <div className="container-fluid">
                 <div className="navbar-brand ">
                     <a href="/" className="text-decoration-none">
