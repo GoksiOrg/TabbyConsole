@@ -3,13 +3,18 @@ import getServersPaginator, {Server, ServerPaginator} from "../../helpers/api/lo
 import {useEffect, useState} from "react";
 import Loading from "../Loading";
 import ServerRow from "./ServerRow";
-/*TODO: paginator under rows*/
+import Paginator from "./Paginator";
 
 export default function MainContainer() {
     const [getPaginator, setPaginator] = useState<ServerPaginator>(undefined);
     const [isLoading, setLoading] = useState<boolean>(true);
+    const update = (page: number) => {
+        setLoading(true);
+        getServersPaginator(page).then(paginator => setPaginator(paginator));
+    }
+
     useEffect(() => {
-        getServersPaginator().then(pag => setPaginator(pag))
+        update(1);
     }, [])
 
     useEffect(() => {
@@ -20,8 +25,11 @@ export default function MainContainer() {
         <>
             <NavBar/>
             <div className="container d-flex justify-content-center align-items-center flex-column">
-                {isLoading ? <Loading/> : getPaginator.servers.map((server: Server) => <ServerRow {...server}/>)}
+                {isLoading ? <Loading/> : getPaginator.servers.map((server: Server) => <ServerRow
+                    server={server} key={server.id}/>)}
             </div>
+            {!isLoading &&
+                <Paginator paginator={getPaginator} update={update}/>}
         </>
     );
 }
