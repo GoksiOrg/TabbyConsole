@@ -23,7 +23,7 @@ class ControlRepository
     public function getResources(): array
     {
         try {
-            $response = $this->getGuzzle()->get('/api/system');
+            $response = $this->getGuzzle()->get('/api/resources');
         } catch (GuzzleException) {
             throw new ServerConnectionException();
         }
