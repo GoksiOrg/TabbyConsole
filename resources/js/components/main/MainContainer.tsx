@@ -24,7 +24,7 @@ export default function MainContainer() {
     return (
         <>
             <NavBar/>
-            <div className="container d-flex justify-content-center align-items-center flex-column">
+            <div className="container-md">
                 {isLoading ? <Loading/> : getPaginator.servers.map((server: Server) => <ServerRow
                     server={server} key={server.id}/>)}
             </div>
