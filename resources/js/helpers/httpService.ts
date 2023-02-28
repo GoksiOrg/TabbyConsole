@@ -1,10 +1,12 @@
 import axios from 'axios';
 
+
 const http = axios.create({
     timeout: 10000,
     headers: {
-        Accept: 'application/json'
-    }
+        Accept: 'application/json',
+        "Content-Type": 'application/json'
+    },
 })
 let csrf = document.head.querySelector('meta[name="csrf-token"]');
 
