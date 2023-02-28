@@ -24,7 +24,8 @@ class ControlRepository
     {
         try {
             $response = $this->getGuzzle()->get('/api/resources');
-        } catch (GuzzleException) {
+        } catch (GuzzleException $e) {
+            error_log($e->getMessage());
             throw new ServerConnectionException();
         }
         return json_decode($response->getBody()->__toString(), true);
@@ -35,7 +36,7 @@ class ControlRepository
         return new Client([
             'base_uri' => $this->server->getConnectionUrl(),
             'timeout' => 5,
-            'connection_timeout' => 5,
+            'connect_timeout' => 2,
             'headers' => [
                 'Authorization' => 'Bearer ' . $this->server->getDecryptedSecret(),
                 'Accept' => 'application/json',
