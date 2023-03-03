@@ -9,3 +9,5 @@ public/assets/manifest.json
 .phpstorm.meta.php
 _ide_helper.php
 
+/public/storage
+/docker/volumes
