@@ -4,10 +4,9 @@ namespace App\Console\Commands;
 
 use App\Models\User;
 use Illuminate\Console\Command;
-use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\Console\Command\Command as CommandAlias;
+use Validator;
 
 class RegisterUserCommand extends Command
 {
@@ -16,7 +15,7 @@ class RegisterUserCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'user:register {--username=} {--password=} {--admin=}';
+    protected $signature = 'teddy:register';
 
     /**
      * The console command description.
@@ -34,12 +33,20 @@ class RegisterUserCommand extends Command
     {
 
         $user = new User();
-        $user->username = $this->option('username');
-        $user->password = Hash::make($this->option('password'));
-        $user->admin = $this->option('admin');
+        $user->username = $this->ask("Please type your username");
+        $password = $this->secret("Please enter your password");
+        $validator = Validator::make([
+            'password' => $password
+        ], ['password' => 'required|min:7|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/']);
+        if ($validator->fails()) {
+            foreach ($validator->errors()->all() as $error) {
+                $this->error($error);
+            }
+            return CommandAlias::FAILURE;
+        }
+        $user->password = Hash::make($password);
+        $user->admin = $this->confirm("Should this user be administrator ?");
         $user->save();
-
-
         return CommandAlias::SUCCESS;
     }
 }
