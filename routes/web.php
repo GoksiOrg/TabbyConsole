@@ -28,4 +28,3 @@ Route::middleware('auth')->group(function () {
         return view('main.base');
     })->where('frontend', '^(?!(\/)?(api|login)).+');
 });
-

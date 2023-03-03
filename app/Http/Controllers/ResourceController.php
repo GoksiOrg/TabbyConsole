@@ -11,7 +11,6 @@ use Illuminate\Http\JsonResponse;
 
 class ResourceController extends Controller
 {
-
     public function __construct(private readonly ControlRepository $repository, private readonly Repository $cache)
     {
     }
@@ -25,6 +24,7 @@ class ResourceController extends Controller
         $resources = $this->cache->remember($cacheKey, Carbon::now()->addSeconds(20), function () use ($server) {
             return $this->repository->setServer($server)->getResources();
         });
+
         return response()->json($resources);
     }
 }

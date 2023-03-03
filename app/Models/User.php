@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Sanctum\HasApiTokens;
 
-
 /**
  * App\Models\User
  *
@@ -25,6 +24,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property-read int|null $servers_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
+ *
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
@@ -36,8 +36,10 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @method static Builder|User whereUsername($value)
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subuser> $subservers
  * @property-read int|null $subservers_count
+ *
  * @mixin \Eloquent
  */
 class User extends Model implements AuthContract
@@ -62,9 +64,8 @@ class User extends Model implements AuthContract
      * @var array<int, string>
      */
     protected $hidden = [
-        'password'
+        'password',
     ];
-
 
     protected $table = 'users';
 
@@ -74,7 +75,7 @@ class User extends Model implements AuthContract
      * @var array<string, string>
      */
     protected $casts = [
-        'admin' => 'boolean'
+        'admin' => 'boolean',
     ];
 
     public function isAdmin(): bool

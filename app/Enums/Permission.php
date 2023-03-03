@@ -8,5 +8,4 @@ enum Permission: int
     case CONSOLE = 1 << 1;
     case VIEW_FILES = 1 << 2;
     case EDIT_FILES = 1 << 3;
-
 }

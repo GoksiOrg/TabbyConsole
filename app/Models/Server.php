@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Crypt;
 
-
 /**
  * App\Models\Server
  *
@@ -24,6 +23,7 @@ use Illuminate\Support\Facades\Crypt;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read int|null $users_count
+ *
  * @method static Builder|Server newModelQuery()
  * @method static Builder|Server newQuery()
  * @method static Builder|Server query()
@@ -35,9 +35,11 @@ use Illuminate\Support\Facades\Crypt;
  * @method static Builder|Server wherePort($value)
  * @method static Builder|Server whereSecret($value)
  * @method static Builder|Server whereUpdatedAt($value)
+ *
  * @property-read \App\Models\User $owner
  * @property-read Collection<int, \App\Models\Subuser> $subusers
  * @property-read int|null $subusers_count
+ *
  * @mixin \Eloquent
  */
 class Server extends Model
@@ -50,7 +52,7 @@ class Server extends Model
         'name',
         'host',
         'port',
-        'secret'
+        'secret',
     ];
 
     protected $hidden = ['secret'];
@@ -84,5 +86,4 @@ class Server extends Model
                 $builder->where('users.id', $this->owner_id)->orWhere('subusers.server_id', $this->id);
             });
     }
-
 }

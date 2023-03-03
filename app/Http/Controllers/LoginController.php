@@ -20,36 +20,42 @@ class LoginController extends Controller
         if (Auth::check()) {
             $previous = URL::previousPath();
             error_log($previous);
-            return redirect($previous == "/login" ? "/" : $previous); /*TODO: check da li je ovo dobro*/
+
+            return redirect($previous == '/login' ? '/' : $previous); /*TODO: check da li je ovo dobro*/
         }
+
         return view('main.base');
     }
 
     public function login(Request $request): JsonResponse
     {
-        if ($this->hasTooManyLoginAttempts($request)) return new JsonResponse([
-            'success' => false,
-            'redirect' => "",
-            'error' => "too_many_attempts"
-        ]);
+        if ($this->hasTooManyLoginAttempts($request)) {
+            return new JsonResponse([
+                'success' => false,
+                'redirect' => '',
+                'error' => 'too_many_attempts',
+            ]);
+        }
         $credentials = $request->validate([
-            'username' => "required|min:4",
-            'password' => "required|min:7|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/"
+            'username' => 'required|min:4',
+            'password' => "required|min:7|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/",
         ]);
         if (Auth::attempt($credentials, $request->input('remember_me') ?? false)) {
             $request->session()->regenerate();
             $this->clearLoginAttempts($request);
         } else {
             $this->incrementLoginAttempts($request);
+
             return new JsonResponse([
                 'success' => false,
-                'redirect' => "",
-                'error' => "wrong_credentials"
+                'redirect' => '',
+                'error' => 'wrong_credentials',
             ]);
-        };
+        }
+
         return new JsonResponse([
             'success' => true,
-            'redirect' => Redirect::intended()->getTargetUrl()
+            'redirect' => Redirect::intended()->getTargetUrl(),
         ]);
     }
 
@@ -58,6 +64,7 @@ class LoginController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
         return redirect('login');
     }
 }

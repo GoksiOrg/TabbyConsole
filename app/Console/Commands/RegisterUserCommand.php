@@ -26,27 +26,26 @@ class RegisterUserCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
     public function handle(): int
     {
-
         $user = new User();
-        $user->username = $this->ask("Please type your username");
-        $password = $this->secret("Please enter your password");
+        $user->username = $this->ask('Please type your username');
+        $password = $this->secret('Please enter your password');
         $validator = Validator::make([
-            'password' => $password
+            'password' => $password,
         ], ['password' => 'required|min:7|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/']);
         if ($validator->fails()) {
             foreach ($validator->errors()->all() as $error) {
                 $this->error($error);
             }
+
             return CommandAlias::FAILURE;
         }
         $user->password = Hash::make($password);
-        $user->admin = $this->confirm("Should this user be administrator ?");
+        $user->admin = $this->confirm('Should this user be administrator ?');
         $user->save();
+
         return CommandAlias::SUCCESS;
     }
 }

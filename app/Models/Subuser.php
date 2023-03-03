@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Server $server
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Subuser newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Subuser newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Subuser query()
@@ -26,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Subuser whereServerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subuser whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subuser whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Subuser extends Model

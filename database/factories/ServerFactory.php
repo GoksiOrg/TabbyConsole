@@ -20,12 +20,13 @@ class ServerFactory extends Factory
     {
         $string = Str::random();
         error_log($string);
+
         return [
             'name' => 'Localhost',
             'host' => 'localhost',
             'port' => 8080,
             'owner_id' => 2,
-            'secret' => Crypt::encrypt($string)
+            'secret' => Crypt::encrypt($string),
         ];
     }
 }

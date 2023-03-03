@@ -14,6 +14,7 @@ class ControlRepository
     public function setServer(Server $server): self
     {
         $this->server = $server;
+
         return $this;
     }
 
@@ -28,6 +29,7 @@ class ControlRepository
             error_log($e->getMessage());
             throw new ServerConnectionException();
         }
+
         return json_decode($response->getBody()->__toString(), true);
     }
 
@@ -38,10 +40,10 @@ class ControlRepository
             'timeout' => 5,
             'connect_timeout' => 2,
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->server->getDecryptedSecret(),
+                'Authorization' => 'Bearer '.$this->server->getDecryptedSecret(),
                 'Accept' => 'application/json',
-                'Content-Type' => 'application/json'
-            ]
+                'Content-Type' => 'application/json',
+            ],
         ]);
     }
 }
