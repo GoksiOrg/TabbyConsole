@@ -27,7 +27,7 @@ export default function ServerRow(props: { server: Server, key: number }) {
             <td>{getStoreResources.usedRam} / {getStoreResources.totalRam} MB</td>
             <td>{getStoreResources.usedCpu} / 100 %</td>
             <td>{getStoreResources.onlinePlayers} / {getStoreResources.totalPlayers}</td>
-            <td>S</td>
+            <td>{getStoreResources.online ? "Online" : "Offline"}</td>
         </tr>
     );
 }

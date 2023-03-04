@@ -47,7 +47,8 @@ export default function LoginContainer() {
                     usernameRef.current.value = "";
                     passwordRef.current.value = "";
                 }
-            }).catch(() => {
+            }).catch((err) => {
+            console.error(err);
             setErrorAlert({shouldDisplay: true, message: "Error while communicating with backend !"})
         }).finally(() => setSubmitting(false));
     }
