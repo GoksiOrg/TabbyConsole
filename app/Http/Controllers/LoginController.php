@@ -52,7 +52,6 @@ class LoginController extends Controller
                 'error' => 'wrong_credentials',
             ]);
         }
-
         return new JsonResponse([
             'success' => true,
             'redirect' => Redirect::intended()->getTargetUrl(),

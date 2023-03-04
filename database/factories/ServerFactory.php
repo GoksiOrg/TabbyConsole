@@ -19,13 +19,11 @@ class ServerFactory extends Factory
     public function definition()
     {
         $string = Str::random();
-        error_log($string);
-
         return [
-            'name' => 'Localhost',
-            'host' => 'localhost',
-            'port' => 8080,
-            'owner_id' => 2,
+            'name' => $this->faker->domainName,
+            'host' => $this->faker->ipv4,
+            'port' => $this->faker->numberBetween(8080, 25565),
+            'owner_id' => 1,
             'secret' => Crypt::encrypt($string),
         ];
     }

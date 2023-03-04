@@ -7,6 +7,8 @@ export interface ServerResources {
     totalRam: number;
     usedRam: string;
     usedCpu: string;
+
+    online: boolean;
 }
 
 export const InitialResources: ServerResources = {
@@ -15,7 +17,8 @@ export const InitialResources: ServerResources = {
     onlinePlayers: 0,
     totalRam: 0,
     usedRam: "0",
-    usedCpu: "0"
+    usedCpu: "0",
+    online: false
 }
 
 export default function getResources(id: number): Promise<ServerResources> {
@@ -28,7 +31,8 @@ export default function getResources(id: number): Promise<ServerResources> {
                 onlinePlayers: result.data.online_players,
                 totalRam: result.data.total_ram,
                 usedRam: result.data.used_ram.toFixed(2),
-                usedCpu: (result.data.cpu_usage * 100).toFixed(2)
+                usedCpu: (result.data.cpu_usage * 100).toFixed(2),
+                online: true
             }))
             .catch(reject);
     });
