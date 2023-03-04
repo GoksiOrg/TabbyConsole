@@ -45,7 +45,7 @@ class RegisterUserCommand extends Command
         $user->password = Hash::make($password);
         $user->admin = $this->confirm('Should this user be administrator ?');
         $user->save();
-
+        $this->alert('User successfully registered !');
         return CommandAlias::SUCCESS;
     }
 }
