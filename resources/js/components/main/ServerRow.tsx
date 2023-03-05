@@ -11,8 +11,13 @@ export default function ServerRow(props: { server: Server, key: number }) {
             .catch(() => setStoreResources(InitialResources))
             .finally(() => setLoading(false));
     }
+
     useEffect(() => {
-        getResource()
+        getResource();
+        const job = setInterval(() => {
+            getResource();
+        }, 20000);
+        return () => clearInterval(job);
     }, []);
     return (
         <tr>
