@@ -14,3 +14,69 @@
     @extend .d-none;
     @extend .d-sm-block;
 }
+
+// indicators
+$size: 13px;
+$border: 15px;
+
+.indicator {
+    position: relative;
+    display: inline-block;
+    width: $size;
+    height: $size;
+    border-radius: 50%;
+    margin: $border;
+
+    &.online, &.online:before {
+        background: green;
+        animation: pulse 1.5s infinite ease-in;
+    }
+
+    &.offline {
+        background: red;
+        width: 10px;
+        height: 10px;
+    }
+
+    &.loading {
+        width: 10px;
+        height: 10px;
+        border: 5px solid #FFF;
+        border-bottom-color: #1a202c;
+        box-sizing: border-box;
+        animation: rotation 1s infinite linear;
+    }
+
+    &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        left: -(calc($border / 2));
+        top: -(calc($border/ 2));
+        width: $size + $border;
+        height: $size + $border;
+        border-radius: 50%;
+    }
+}
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(0.5);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(1.2);
+        opacity: 0;
+    }
+}

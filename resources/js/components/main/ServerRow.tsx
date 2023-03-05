@@ -4,11 +4,12 @@ import getResources, {InitialResources, ServerResources} from "../../helpers/api
 /*TODO: make scheme configurable, have to change plugin to support https also*/
 export default function ServerRow(props: { server: Server, key: number }) {
     const [getStoreResources, setStoreResources] = useState<ServerResources>(InitialResources);
-
+    const [isLoading, setLoading] = useState<boolean>(true)
     const getResource = () => {
         getResources(props.server.id)
             .then(resources => setStoreResources(resources))
             .catch(() => setStoreResources(InitialResources))
+            .finally(() => setLoading(false));
     }
     useEffect(() => {
         getResource()
@@ -27,7 +28,11 @@ export default function ServerRow(props: { server: Server, key: number }) {
             <td>{getStoreResources.usedRam} / {getStoreResources.totalRam} MB</td>
             <td>{getStoreResources.usedCpu} / 100 %</td>
             <td>{getStoreResources.onlinePlayers} / {getStoreResources.totalPlayers}</td>
-            <td>{getStoreResources.online ? "Online" : "Offline"}</td>
+            <td>{isLoading ?
+                <span className="indicator loading" data-toggle="tooltip"
+                      title="Loading..."></span> : getStoreResources.online ?
+                    <span className="indicator online" data-toggle="tooltip" title="Online"></span> :
+                    <span className="indicator offline" data-toggle="tooltip" title="Offline"></span>}</td>
         </tr>
     );
 }
