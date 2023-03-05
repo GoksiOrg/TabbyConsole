@@ -4,8 +4,8 @@ module.exports = {
         es2021: true
     },
     extends: [
-        'plugin:react/recommended',
-        'standard-with-typescript'
+        "plugin:react/recommended",
+        "standard-with-typescript"
     ],
     overrides: [],
     parser: "@typescript-eslint/parser",
@@ -13,17 +13,19 @@ module.exports = {
         ecmaFeatures: {
             jsx: true
         },
-        ecmaVersion: 'latest',
-        sourceType: 'module'
+        project: "./tsconfig.json",
+        tsconfigRootDir: "./",
+        ecmaVersion: "latest",
+        sourceType: "module"
     },
     plugins: [
-        'react',
-        '@typescript-eslint',
-        'prettier',
-        'react-hooks'
+        "react",
+        "@typescript-eslint",
+        "prettier",
+        "react-hooks"
     ],
     rules: {
-        'react/prop-types': 0,
-        '@typescript-eslint/no-unused-vars': ['warn', {argsIgnorePattern: '^_', varsIgnorePattern: '^_'}],
+        "react/prop-types": 0,
+        "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }]
     }
-}
+};

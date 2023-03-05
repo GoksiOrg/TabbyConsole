@@ -1,0 +1,36 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "display": "Default",
+    "compilerOptions": {
+        "lib": [
+            "DOM",
+            "DOM.Iterable",
+            "ESNext"
+        ],
+        "jsx": "react-jsx",
+        "module": "ESNext",
+        "target": "ES2019",
+        "allowJs": false,
+        "allowSyntheticDefaultImports": true,
+        "composite": false,
+        "forceConsistentCasingInFileNames": true,
+        "moduleResolution": "Node",
+        "newLine": "lf",
+        "noEmit": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noPropertyAccessFromIndexSignature": false,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "strict": true,
+        "useDefineForClassFields": true
+    },
+    "include": [
+        "./resources/js/**/*",
+        "vite.config.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
