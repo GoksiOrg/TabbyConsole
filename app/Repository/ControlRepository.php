@@ -38,7 +38,7 @@ class ControlRepository
         return new Client([
             'base_uri' => $this->server->getConnectionUrl(),
             'timeout' => 5,
-            'connect_timeout' => 2,
+            'connect_timeout' => 3,
             'headers' => [
                 'Authorization' => 'Bearer '.$this->server->getDecryptedSecret(),
                 'Accept' => 'application/json',

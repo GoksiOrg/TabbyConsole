@@ -2,12 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\Server;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Server>
+ * @extends Factory<Server>
  */
 class ServerFactory extends Factory
 {
@@ -19,6 +20,7 @@ class ServerFactory extends Factory
     public function definition()
     {
         $string = Str::random();
+
         return [
             'name' => $this->faker->domainName,
             'host' => $this->faker->ipv4,
