@@ -4,7 +4,7 @@ import getResources, {InitialResources, ServerResources} from "../../helpers/api
 /*TODO: make scheme configurable, have to change plugin to support https also*/
 export default function ServerRow(props: { server: Server, key: number }) {
     const [getStoreResources, setStoreResources] = useState<ServerResources>(InitialResources);
-    const [isLoading, setLoading] = useState<boolean>(true)
+    const [isLoading, setLoading] = useState<boolean>(true);
     const getResource = () => {
         getResources(props.server.id)
             .then(resources => setStoreResources(resources))
@@ -17,9 +17,12 @@ export default function ServerRow(props: { server: Server, key: number }) {
     return (
         <tr>
             <td>
-                <img
-                    src={getStoreResources.icon.length == 0 ? "/img/mc-default.png" : `data:image/png;base64, ${getStoreResources.icon}`}
-                    alt="Server icon"/>
+                <a href={`/server/${props.server.id}`}
+                   className={isLoading || !getStoreResources.online ? "pe-none" : ""}>
+                    <img
+                        src={getStoreResources.icon.length == 0 ? "/img/mc-default.png" : `data:image/png;base64, ${getStoreResources.icon}`}
+                        alt="Server icon"/>
+                </a>
             </td>
             <td>
                 <p>{props.server.name}</p>
