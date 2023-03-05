@@ -4,22 +4,28 @@ import {useEffect, useState} from "react";
 import ServerRow from "./ServerRow";
 import Paginator from "./Paginator";
 import Loading from "../Loading";
+import {useSearchParams} from "react-router-dom";
 
 export default function MainContainer() {
     const [getPaginator, setPaginator] = useState<ServerPaginator>(undefined);
+    const [searchParam, setSearchParam] = useSearchParams();
     const [isLoading, setLoading] = useState<boolean>(true);
+    const initialPage = parseInt(searchParam.get("page")) || 1;
     const update = (page: number) => {
         setLoading(true);
         getServersPaginator(page).then(paginator => setPaginator(paginator));
     }
 
     useEffect(() => {
-        update(1);
+        update(initialPage);
     }, [])
 
     useEffect(() => {
-        if (getPaginator !== undefined)
+        if (getPaginator !== undefined) {
+            setSearchParam(getPaginator.currentPage == 1 ? {} : {page: getPaginator.currentPage});
             setLoading(false);
+        }
+
     }, [getPaginator]);
     return (
         <>
