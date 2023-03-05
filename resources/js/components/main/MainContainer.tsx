@@ -1,45 +1,45 @@
-import NavBar from '../global/NavBar'
+import NavBar from "../global/NavBar";
 import getServersPaginator, {
-  type Server,
-  type ServerPaginator
-} from '../../helpers/api/local/getServersPaginator'
-import { useEffect, useState } from 'react'
-import ServerRow from './ServerRow'
-import Paginator from './Paginator'
-import Loading from '../Loading'
-import { useSearchParams } from 'react-router-dom'
+    type Server,
+    type ServerPaginator,
+} from "../../helpers/api/local/getServersPaginator";
+import { useEffect, useState } from "react";
+import ServerRow from "./ServerRow";
+import Paginator from "./Paginator";
+import Loading from "../Loading";
+import { useSearchParams } from "react-router-dom";
 
-export default function MainContainer () {
-  const [getPaginator, setPaginator] = useState<ServerPaginator>()
-  const [searchParam, setSearchParam] = useSearchParams()
-  const [isLoading, setLoading] = useState<boolean>(true)
-  const initialPage = parseInt(searchParam.get('page') ?? '1')
-  const update = (page: number) => {
-    setLoading(true)
-    getServersPaginator(page)
-      .then(paginator => {
-        setPaginator(paginator)
-      })
-      .catch(err => {
-        console.error(err)
-      })
-  }
+export default function MainContainer() {
+    const [getPaginator, setPaginator] = useState<ServerPaginator>();
+    const [searchParam, setSearchParam] = useSearchParams();
+    const [isLoading, setLoading] = useState<boolean>(true);
+    const initialPage = parseInt(searchParam.get("page") ?? "1");
+    const update = (page: number) => {
+        setLoading(true);
+        getServersPaginator(page)
+            .then(paginator => {
+                setPaginator(paginator);
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    };
 
-  useEffect(() => {
-    update(initialPage)
-  }, [])
+    useEffect(() => {
+        update(initialPage);
+    }, []);
 
-  useEffect(() => {
-    if (getPaginator !== undefined) {
-      setSearchParam(
-        getPaginator.currentPage === 1
-          ? []
-          : [['page', getPaginator.currentPage.toString()]]
-      )
-      setLoading(false)
-    }
-  }, [getPaginator])
-  return (
+    useEffect(() => {
+        if (getPaginator !== undefined) {
+            setSearchParam(
+                getPaginator.currentPage === 1
+                    ? []
+                    : [["page", getPaginator.currentPage.toString()]]
+            );
+            setLoading(false);
+        }
+    }, [getPaginator]);
+    return (
         <>
             <NavBar />
             <div className="container-md table-responsive-md">
@@ -55,19 +55,17 @@ export default function MainContainer () {
                         </tr>
                     </thead>
                     <tbody>
-                        {isLoading
-                          ? (
+                        {isLoading ? (
                             <tr>
                                 <td colSpan={5}>
                                     <Loading />
                                 </td>
                             </tr>
-                            )
-                          : (
-                              getPaginator.servers.map((server: Server) => (
+                        ) : (
+                            getPaginator.servers.map((server: Server) => (
                                 <ServerRow server={server} key={server.id} />
-                              ))
-                            )}
+                            ))
+                        )}
                     </tbody>
                 </table>
             </div>
@@ -75,5 +73,5 @@ export default function MainContainer () {
                 <Paginator paginator={getPaginator} update={update} />
             )}
         </>
-  )
+    );
 }
