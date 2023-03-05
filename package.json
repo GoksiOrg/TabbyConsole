@@ -4,6 +4,8 @@
         "dev": "vite",
         "dev-docker": "vite --host",
         "lint": "eslint ./resources/js/**/*.{ts,tsx} --ext .ts,.tsx",
+        "lint:fix": "eslint --fix './resources/js/**/*.{ts,tsx}'",
+        "format": "prettier --write ',./resources/js/**/*.{ts,tsx}' --config ./.prettierrc",
         "build": "vite build"
     },
     "devDependencies": {
