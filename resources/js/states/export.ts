@@ -1,13 +1,12 @@
-import user, {UserStore} from "./user";
-import {createStore} from "easy-peasy";
+import user, { type UserStore } from './user'
+import { createStore } from 'easy-peasy'
 
-export interface GlobalStore{
-    user: UserStore;
+export interface GlobalStore {
+  user: UserStore
 }
 
 const state: GlobalStore = {
-    user
-};
+  user
+}
 
-export const store = createStore<GlobalStore>(state);
-
+export const store = createStore<GlobalStore>(state)

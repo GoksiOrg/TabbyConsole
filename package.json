@@ -5,11 +5,13 @@
         "dev-docker": "vite --host",
         "lint": "eslint ./resources/js/**/*.{ts,tsx} --ext .ts,.tsx",
         "lint:fix": "eslint --fix './resources/js/**/*.{ts,tsx}'",
-        "format": "prettier --write ',./resources/js/**/*.{ts,tsx}' --config ./.prettierrc",
+        "format": "prettier --write './resources/js/**/*.{ts,tsx}' --config ./.prettierrc",
         "build": "vite build"
     },
     "devDependencies": {
         "@popperjs/core": "^2.11.6",
+        "@types/react": "^18.0.28",
+        "@types/react-dom": "^18.0.11",
         "@typescript-eslint/eslint-plugin": "^5.54.0",
         "@typescript-eslint/parser": "^5.54.0",
         "@vitejs/plugin-react": "^3.1.0",

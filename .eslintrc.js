@@ -5,7 +5,8 @@ module.exports = {
     },
     extends: [
         "plugin:react/recommended",
-        "standard-with-typescript"
+        "standard-with-typescript",
+        "plugin:react/jsx-runtime"
     ],
     overrides: [],
     parser: "@typescript-eslint/parser",
@@ -18,6 +19,12 @@ module.exports = {
         ecmaVersion: "latest",
         sourceType: "module"
     },
+    settings: {
+        react: {
+            pragma: "React",
+            version: "detect"
+        }
+    },
     plugins: [
         "react",
         "@typescript-eslint",
@@ -26,6 +33,11 @@ module.exports = {
     ],
     rules: {
         "react/prop-types": 0,
-        "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }]
+        "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "react/react-in-jsx-scope": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/prefer-nullish-coalescing": "off",
+        "@typescript-eslint/strict-boolean-expressions": "off"
     }
 };

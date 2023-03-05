@@ -1,17 +1,16 @@
-import axios from 'axios';
-
+import axios from 'axios'
 
 const http = axios.create({
-    timeout: 10000,
-    headers: {
-        Accept: 'application/json',
-        "Content-Type": 'application/json'
-    },
+  timeout: 10000,
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
+  }
 })
-let csrf = document.head.querySelector('meta[name="csrf-token"]');
+const csrf = document.head.querySelector('meta[name="csrf-token"]')
 
-if (csrf && csrf instanceof HTMLMetaElement) {
-    http.defaults.headers.common['X-CSRF-TOKEN'] = csrf.content;
+if (csrf != null && csrf instanceof HTMLMetaElement) {
+  http.defaults.headers.common['X-CSRF-TOKEN'] = csrf.content
 }
 
-export default http;
+export default http
