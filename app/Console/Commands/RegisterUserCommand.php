@@ -15,7 +15,7 @@ class RegisterUserCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'teddy:register';
+    protected $signature = 'tabby:register';
 
     /**
      * The console command description.

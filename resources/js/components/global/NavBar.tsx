@@ -24,7 +24,7 @@ export default function NavBar() {
                             width={35}
                             height={35}
                         />
-                        <span className="text-white ms-2">TeddyConsole</span>
+                        <span className="text-white ms-2">TabbyConsole</span>
                     </a>
                 </div>
                 <img

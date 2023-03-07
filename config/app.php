@@ -17,7 +17,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'TeddyConsole'),
+    'name' => env('APP_NAME', 'TabbyConsole'),
 
     /*
     |--------------------------------------------------------------------------

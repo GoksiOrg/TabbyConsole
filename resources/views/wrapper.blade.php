@@ -24,7 +24,7 @@
             color: white;
         }
     </style>
-    <title>{{ config('app.name', 'TeddyConsole') }}</title>
+    <title>{{ config('app.name', 'TabbyConsole') }}</title>
 </head>
 <body>
 <noscript>You need JavaScript to run this app !</noscript>
