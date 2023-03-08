@@ -1,6 +1,9 @@
 import { type Server } from "../../helpers/api/local/getServersPaginator";
 import { useEffect, useState } from "react";
-import getResources, { InitialResources, type ServerResources } from "../../helpers/api/local/getResources";
+import getResources, {
+    InitialResources,
+    type ServerResources,
+} from "../../helpers/api/local/getResources";
 /* TODO: make scheme configurable, have to change plugin to support https also */
 export default function ServerRow(props: { server: Server; key: number }) {
     const [getStoreResources, setStoreResources] =
@@ -19,7 +22,9 @@ export default function ServerRow(props: { server: Server; key: number }) {
             });
     };
 
-    useEffect(() => getResource(), []);
+    useEffect(() => {
+        getResource();
+    }, []);
 
     useEffect(() => {
         const job = setInterval(() => {

@@ -1,32 +1,32 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faKey,
-  faPlus,
-  faRightFromBracket
-} from '@fortawesome/free-solid-svg-icons'
-import { useStoreState } from '../../states/hook'
-import TabbyAvatar from './TabbyAvatar'
-import { useEffect, useState } from 'react'
+    faKey,
+    faPlus,
+    faRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
+import { useStoreState } from "../../states/hook";
+import TabbyAvatar from "./TabbyAvatar";
+import { useEffect, useState } from "react";
 
-export default function NavBar () {
-  const name = useStoreState(state => state.user.data.username)
-  const [isXs, setXs] = useState<boolean>(window.innerWidth < 576)
+export default function NavBar() {
+    const name = useStoreState(state => state.user.data.username);
+    const [isXs, setXs] = useState<boolean>(window.innerWidth < 576);
 
-  useEffect(() => {
-    window.addEventListener(
-      'resize',
-      () => {
-        const xs = window.innerWidth < 576
-        if (xs !== isXs) setXs(xs)
-      },
-      false
-    )
-  }, [isXs])
+    useEffect(() => {
+        window.addEventListener(
+            "resize",
+            () => {
+                const xs = window.innerWidth < 576;
+                if (xs !== isXs) setXs(xs);
+            },
+            false
+        );
+    }, [isXs]);
 
-  return (
+    return (
         <nav
             className="navbar navbar-expand-sm mb-3"
-            style={{ backgroundColor: '#1a202c' }}
+            style={{ backgroundColor: "#1a202c" }}
             aria-label="Main navigation"
         >
             <div className="container-fluid">
@@ -110,5 +110,5 @@ export default function NavBar () {
                 </div>
             </div>
         </nav>
-  )
+    );
 }

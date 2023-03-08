@@ -1,10 +1,10 @@
-import Avatar from 'boring-avatars'
+import Avatar from "boring-avatars";
 
-const pallet = ['#485a69', '#ffffff', '#172642', '#0d6efd', '#d5e1ed']
-export default function TabbyAvatar (props: { name: string, toggler: boolean }) {
-  return (
+const pallet = ["#485a69", "#ffffff", "#172642", "#0d6efd", "#d5e1ed"];
+export default function TabbyAvatar(props: { name: string; toggler: boolean }) {
+    return (
         <div
-            className={props.toggler ? 'navbar-toggler' : ''}
+            className={props.toggler ? "navbar-toggler" : ""}
             data-bs-toggle="collapse"
             data-bs-target="#nav"
             data-toggle="tooltip"
@@ -17,5 +17,5 @@ export default function TabbyAvatar (props: { name: string, toggler: boolean }) 
                 colors={pallet}
             />
         </div>
-  )
+    );
 }

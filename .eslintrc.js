@@ -38,6 +38,10 @@ module.exports = {
         "react/react-in-jsx-scope": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/prefer-nullish-coalescing": "off",
-        "@typescript-eslint/strict-boolean-expressions": "off"
+        "@typescript-eslint/strict-boolean-expressions": "off",
+        "indent": "off",
+        "quotes": "off",
+        "@typescript-eslint/indent": "off",
+        "@typescript-eslint/quotes": "off"
     }
 };

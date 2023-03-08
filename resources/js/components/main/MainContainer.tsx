@@ -1,11 +1,14 @@
 import NavBar from "../global/NavBar";
-import getServersPaginator, { type Server, type ServerPaginator } from "../../helpers/api/local/getServersPaginator";
+import getServersPaginator, {
+    type Server,
+    type ServerPaginator,
+} from "../../helpers/api/local/getServersPaginator";
 import { useEffect, useState } from "react";
 import ServerRow from "./ServerRow";
 import Paginator from "./Paginator";
 import Loading from "../Loading";
 import { useSearchParams } from "react-router-dom";
-/*TODO: boring avatars, remove sail*/
+/* TODO: boring avatars, remove sail */
 export default function MainContainer() {
     const [getPaginator, setPaginator] = useState<ServerPaginator>();
     const [searchParam, setSearchParam] = useSearchParams();
