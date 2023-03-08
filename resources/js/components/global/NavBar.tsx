@@ -1,17 +1,32 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-    faKey,
-    faPlus,
-    faRightFromBracket,
-} from "@fortawesome/free-solid-svg-icons";
-import { useStoreState } from "../../states/hook";
+  faKey,
+  faPlus,
+  faRightFromBracket
+} from '@fortawesome/free-solid-svg-icons'
+import { useStoreState } from '../../states/hook'
+import TabbyAvatar from './TabbyAvatar'
+import { useEffect, useState } from 'react'
 
-export default function NavBar() {
-    const name = useStoreState(state => state.user.data.username);
-    return (
+export default function NavBar () {
+  const name = useStoreState(state => state.user.data.username)
+  const [isXs, setXs] = useState<boolean>(window.innerWidth < 576)
+
+  useEffect(() => {
+    window.addEventListener(
+      'resize',
+      () => {
+        const xs = window.innerWidth < 576
+        if (xs !== isXs) setXs(xs)
+      },
+      false
+    )
+  }, [isXs])
+
+  return (
         <nav
             className="navbar navbar-expand-sm mb-3"
-            style={{ backgroundColor: "#1a202c" }}
+            style={{ backgroundColor: '#1a202c' }}
             aria-label="Main navigation"
         >
             <div className="container-fluid">
@@ -27,13 +42,7 @@ export default function NavBar() {
                         <span className="text-white ms-2">TabbyConsole</span>
                     </a>
                 </div>
-                <img
-                    src="/img/avatars/male_avatar_1.png"
-                    className="navbar-toggler"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#nav"
-                    alt="avatar"
-                />
+                {isXs && <TabbyAvatar name={name} toggler={true} />}
                 <div className="collapse navbar-collapse" id="nav">
                     <ul className="navbar-nav me-3 ms-auto">
                         <li className="nav-item d-block d-sm-none">
@@ -73,13 +82,10 @@ export default function NavBar() {
                                 Create api key
                             </a>
                         </li>
-                        <li className="nav-item me-3 d-none d-sm-block">
-                            <img
-                                src="/img/avatars/male_avatar_1.png"
-                                alt="avatar"
-                                data-toggle="tooltip"
-                                title={name}
-                            />
+                        <li className="nav-item me-3 mt-1 d-none d-sm-block">
+                            {!isXs && (
+                                <TabbyAvatar name={name} toggler={false} />
+                            )}
                         </li>
                         <li className="nav-item">
                             <a
@@ -104,5 +110,5 @@ export default function NavBar() {
                 </div>
             </div>
         </nav>
-    );
+  )
 }
