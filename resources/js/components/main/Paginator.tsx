@@ -18,10 +18,7 @@ export default function Paginator(props: {
                 <ul className="pagination justify-content-center">
                     <li className="page-item">
                         <button
-                            className={`page-link ${shouldDisable(
-                                currentPage,
-                                1
-                            )}`}
+                            className={`page-link ${shouldDisable(currentPage, 1)}`}
                             onClick={() => {
                                 props.update(currentPage - 1);
                             }}
@@ -32,10 +29,7 @@ export default function Paginator(props: {
                     {indexes.map(i => (
                         <li className="page-item" key={i}>
                             <button
-                                className={`page-link ${shouldDisable(
-                                    currentPage,
-                                    i
-                                )}`}
+                                className={`page-link ${shouldDisable(currentPage, i)}`}
                                 onClick={() => {
                                     props.update(i);
                                 }}
@@ -46,10 +40,7 @@ export default function Paginator(props: {
                     ))}
                     <li className="page-item">
                         <button
-                            className={`page-link ${shouldDisable(
-                                currentPage,
-                                lastPage
-                            )}`}
+                            className={`page-link ${shouldDisable(currentPage, lastPage)}`}
                             onClick={() => {
                                 props.update(currentPage + 1);
                             }}

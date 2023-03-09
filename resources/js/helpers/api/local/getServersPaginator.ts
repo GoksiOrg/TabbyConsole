@@ -14,10 +14,8 @@ export interface ServerPaginator {
     servers: Server[];
 }
 
-export default async function getServersPaginator(
-    page: number = 1
-): Promise<ServerPaginator> {
-    return await new Promise((resolve, reject) => {
+export default function getServersPaginator(page: number = 1): Promise<ServerPaginator> {
+    return new Promise((resolve, reject) => {
         http.get(`/api/servers?page=${page}`)
             .then(result => {
                 resolve({

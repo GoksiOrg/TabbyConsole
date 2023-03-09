@@ -99,9 +99,7 @@ export default function LoginContainer() {
                         onChange={handleOnChange}
                     />
                     <label className="form-label text-light">Password</label>
-                    <div className="invalid-feedback">
-                        Password does not meet the criteria !
-                    </div>
+                    <div className="invalid-feedback">Password does not meet the criteria !</div>
                 </div>
 
                 <div className="form-check mt-1">
@@ -113,10 +111,7 @@ export default function LoginContainer() {
                         onChange={handleCheckBoxChange}
                         checked={checked}
                     />
-                    <label
-                        className="form-check-label mt-3 text-white"
-                        htmlFor="rememberMe"
-                    >
+                    <label className="form-check-label mt-3 text-white" htmlFor="rememberMe">
                         {" "}
                         Remember me{" "}
                     </label>
@@ -129,10 +124,7 @@ export default function LoginContainer() {
                 >
                     Sign in
                 </button>
-                <Alert
-                    shouldRender={errorAlert.shouldDisplay}
-                    message={errorAlert.message}
-                />
+                <Alert shouldRender={errorAlert.shouldDisplay} message={errorAlert.message} />
             </div>
         </form>
     );

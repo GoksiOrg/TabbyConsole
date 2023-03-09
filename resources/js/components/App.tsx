@@ -56,14 +56,8 @@ export default function App() {
                             path="/server/*"
                             element={
                                 <Routes>
-                                    <Route
-                                        path="/add"
-                                        element={<AddServer />}
-                                    />
-                                    <Route
-                                        path=":id/*"
-                                        element={<ServerRouter />}
-                                    />
+                                    <Route path="/add" element={<AddServer />} />
+                                    <Route path=":id/*" element={<ServerRouter />} />
                                 </Routes>
                             }
                         />

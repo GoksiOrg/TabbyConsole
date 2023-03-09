@@ -4,10 +4,10 @@ import getResources, {
     InitialResources,
     type ServerResources,
 } from "../../helpers/api/local/getResources";
+import Motd from "../../helpers/Motd";
 /* TODO: make scheme configurable, have to change plugin to support https also */
 export default function ServerRow(props: { server: Server; key: number }) {
-    const [getStoreResources, setStoreResources] =
-        useState<ServerResources>(InitialResources);
+    const [getStoreResources, setStoreResources] = useState<ServerResources>(InitialResources);
     const [isLoading, setLoading] = useState<boolean>(true);
     const getResource = () => {
         getResources(props.server.id)
@@ -40,9 +40,7 @@ export default function ServerRow(props: { server: Server; key: number }) {
             <td>
                 <a
                     href={`/server/${props.server.id}`}
-                    className={
-                        isLoading || !getStoreResources.online ? "pe-none" : ""
-                    }
+                    className={isLoading || !getStoreResources.online ? "pe-none" : ""}
                 >
                     <img
                         src={
@@ -55,7 +53,11 @@ export default function ServerRow(props: { server: Server; key: number }) {
                 </a>
             </td>
             <td>
-                <p>{props.server.name}</p>
+                {getStoreResources.motd.length === 0 ? (
+                    <p>{props.server.name}</p>
+                ) : (
+                    <Motd motd={getStoreResources.motd} />
+                )}
                 <p>
                     {props.server.host}:{props.server.port}
                 </p>
@@ -65,8 +67,7 @@ export default function ServerRow(props: { server: Server; key: number }) {
             </td>
             <td>{getStoreResources.usedCpu} / 100 %</td>
             <td>
-                {getStoreResources.onlinePlayers} /{" "}
-                {getStoreResources.totalPlayers}
+                {getStoreResources.onlinePlayers} / {getStoreResources.totalPlayers}
             </td>
             <td>
                 {isLoading ? (
@@ -76,11 +77,7 @@ export default function ServerRow(props: { server: Server; key: number }) {
                         title="Loading..."
                     ></span>
                 ) : getStoreResources.online ? (
-                    <span
-                        className="indicator online"
-                        data-toggle="tooltip"
-                        title="Online"
-                    ></span>
+                    <span className="indicator online" data-toggle="tooltip" title="Online"></span>
                 ) : (
                     <span
                         className="indicator offline"

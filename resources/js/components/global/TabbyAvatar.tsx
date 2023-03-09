@@ -10,12 +10,7 @@ export default function TabbyAvatar(props: { name: string; toggler: boolean }) {
             data-toggle="tooltip"
             title={props.name}
         >
-            <Avatar
-                size={35}
-                name={props.name}
-                variant="beam"
-                colors={pallet}
-            />
+            <Avatar size={35} name={props.name} variant="beam" colors={pallet} />
         </div>
     );
 }

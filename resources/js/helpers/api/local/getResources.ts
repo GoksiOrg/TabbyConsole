@@ -2,6 +2,7 @@ import http from "../../httpService";
 
 export interface ServerResources {
     icon: string;
+    motd: string;
     totalPlayers: number;
     onlinePlayers: number;
     totalRam: number;
@@ -13,6 +14,7 @@ export interface ServerResources {
 
 export const InitialResources: ServerResources = {
     icon: "",
+    motd: "",
     totalPlayers: 0,
     onlinePlayers: 0,
     totalRam: 0,
@@ -21,14 +23,13 @@ export const InitialResources: ServerResources = {
     online: false,
 };
 
-export default async function getResources(
-    id: number
-): Promise<ServerResources> {
-    return await new Promise((resolve, reject) => {
+export default function getResources(id: number): Promise<ServerResources> {
+    return new Promise((resolve, reject) => {
         http.get(`/api/servers/${id}/resources`)
             .then(result => {
                 resolve({
                     icon: result.data.server_icon,
+                    motd: result.data.motd,
                     totalPlayers: result.data.max_players,
                     onlinePlayers: result.data.online_players,
                     totalRam: result.data.total_ram,

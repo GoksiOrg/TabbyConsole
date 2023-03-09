@@ -1,9 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    faKey,
-    faPlus,
-    faRightFromBracket,
-} from "@fortawesome/free-solid-svg-icons";
+import { faKey, faPlus, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { useStoreState } from "../../states/hook";
 import TabbyAvatar from "./TabbyAvatar";
 import { useEffect, useState } from "react";
@@ -83,9 +79,7 @@ export default function NavBar() {
                             </a>
                         </li>
                         <li className="nav-item me-3 mt-1 d-none d-sm-block">
-                            {!isXs && (
-                                <TabbyAvatar name={name} toggler={false} />
-                            )}
+                            {!isXs && <TabbyAvatar name={name} toggler={false} />}
                         </li>
                         <li className="nav-item">
                             <a
@@ -94,10 +88,7 @@ export default function NavBar() {
                                 title="Logout"
                                 href="/logout"
                             >
-                                <FontAwesomeIcon
-                                    icon={faRightFromBracket}
-                                    size="2x"
-                                />
+                                <FontAwesomeIcon icon={faRightFromBracket} size="2x" />
                             </a>
                             <a
                                 className="text-decoration-none text-white nav-link d-block d-sm-none"
