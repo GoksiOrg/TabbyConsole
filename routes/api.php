@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\ServersController;
+use App\Http\Controllers\WebsocketController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,5 +21,6 @@ Route::prefix('servers')->group(function () {
     Route::post('/', [ServersController::class, 'store']);
     Route::prefix('{server}')->middleware('ensure.server.access')->group(function () {
         Route::get('resources', [ResourceController::class, 'index']);
+        Route::get('websocket', [WebsocketController::class, 'token']);
     });
 });

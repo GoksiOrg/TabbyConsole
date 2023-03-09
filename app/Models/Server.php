@@ -77,6 +77,11 @@ class Server extends Model
         return "http://$this->host:$this->port";
     }
 
+    public function getWebsocketUrl(): string
+    {
+        return "ws://$this->host:$this->port";
+    }
+
     public function users(): Builder
     {
         return User::query()
