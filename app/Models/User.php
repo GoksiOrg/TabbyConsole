@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Permission;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthContract;
 use Illuminate\Database\Eloquent\Builder;
@@ -103,8 +104,11 @@ class User extends Model implements AuthContract
             });
     }
 
-    /*public function hasPermission(Server $server, Permission $permission): bool
+    public function hasPermission(Server $server, Permission $permission): bool
     {
-
-    }*/
+        if ($this->servers->contains($server->id)) return true;
+        $subuser = $this->subservers->where('server_id', $server->id)->first();
+        if(($subuser->permission & $permission->value) == 1) return true;
+        else return false;
+    }
 }
