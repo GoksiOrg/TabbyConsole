@@ -53,14 +53,14 @@ export default function ServerRow(props: { server: Server; key: number }) {
                 </a>
             </td>
             <td>
+                <p>
+                    {props.server.host}:{props.server.port}
+                </p>
                 {getStoreResources.motd.length === 0 ? (
                     <p>{props.server.name}</p>
                 ) : (
                     <Motd motd={getStoreResources.motd} />
                 )}
-                <p>
-                    {props.server.host}:{props.server.port}
-                </p>
             </td>
             <td>
                 {getStoreResources.usedRam} / {getStoreResources.totalRam} MB

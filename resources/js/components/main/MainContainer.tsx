@@ -57,8 +57,14 @@ export default function MainContainer() {
                     <tbody>
                         {isLoading ? (
                             <tr>
-                                <td colSpan={5}>
+                                <td colSpan={6}>
                                     <Loading />
+                                </td>
+                            </tr>
+                        ) : getPaginator.servers.length === 0 ? (
+                            <tr>
+                                <td colSpan={6} className="text-center">
+                                    You currently don't have any servers !
                                 </td>
                             </tr>
                         ) : (
