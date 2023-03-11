@@ -64,12 +64,18 @@ function parseMotd(motd: string): ReactElement {
                             "span",
                             {
                                 key: index,
-                                style: { ...resultColor, ...fontStyle },
+                                style: { ...resultColor, ...fontStyle, whiteSpace: "pre-wrap" },
                             },
                             textContent
                         )
                     );
-                } else resultHtml.push(textContent);
+                } else {
+                    resultHtml.push(
+                        textContent.length === 1 && textContent.charCodeAt(0) === 10
+                            ? createElement("br", { key: index })
+                            : textContent
+                    );
+                }
             }
         }
     });
@@ -86,6 +92,5 @@ const formatTextToHtml = (text: string): string => {
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#39;")
-        .replace(/\n/g, "<br/>");
+        .replace(/'/g, "&#39;");
 };
