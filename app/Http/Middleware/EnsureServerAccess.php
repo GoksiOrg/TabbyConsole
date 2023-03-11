@@ -26,7 +26,6 @@ class EnsureServerAccess
         if (! $user->isAdmin() && ! $server->users()->get()->contains($user->id)) {
             abort(403, "You don't have permission to operate with this server !");
         }
-
         return $next($request);
     }
 }

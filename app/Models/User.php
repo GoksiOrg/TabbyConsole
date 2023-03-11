@@ -96,6 +96,7 @@ class User extends Model implements AuthContract
 
     public function availableServers(): Builder
     {
+        if($this->admin) return Server::all()->toQuery();
         return Server::query()
             ->select('servers.*')
             ->leftJoin('subusers', 'subusers.server_id', '=', 'servers.id')
@@ -106,6 +107,7 @@ class User extends Model implements AuthContract
 
     public function hasPermission(Server $server, Permission $permission): bool
     {
+        if($this->admin) return true;
         if ($this->servers->contains($server->id)) return true;
         $subuser = $this->subservers->where('server_id', $server->id)->first();
         if(($subuser->permission & $permission->value) == 1) return true;

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Server;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -15,7 +14,6 @@ class ServersController extends Controller
     public function index(Request $request): JsonResponse
     {
         $perPage = $request->query('per_page', 5);
-        /** @var User $user */
         $user = $request->user();
         $servers = $user->availableServers()->paginate(min($perPage, 50));
 
