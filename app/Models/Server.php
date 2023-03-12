@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Crypt;
  * @property string $name
  * @property string $host
  * @property int $port
+ * @property int $game_port
  * @property string $secret
  * @property int $owner_id
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -52,6 +53,7 @@ class Server extends Model
         'name',
         'host',
         'port',
+        'game_port',
         'secret',
     ];
 
