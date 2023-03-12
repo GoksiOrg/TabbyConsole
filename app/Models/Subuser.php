@@ -32,7 +32,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Subuser extends Model
 {
-    use HasFactory;
 
     protected $table = 'subusers';
 
