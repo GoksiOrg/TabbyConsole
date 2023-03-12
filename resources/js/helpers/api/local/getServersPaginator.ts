@@ -5,6 +5,8 @@ export interface Server {
     name: string;
     host: string;
     port: number;
+
+    game_port: number;
     owner_id: number;
 }
 

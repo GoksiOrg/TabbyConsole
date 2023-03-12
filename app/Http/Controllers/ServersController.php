@@ -27,6 +27,7 @@ class ServersController extends Controller
             'name' => 'required|min:3|max:32',
             'host' => ['required', 'ip|regex:/^(?!:\/\/)(?=.{1,255}$)((.{1,63}\.){1,127}(?![0-9]*$)[a-z0-9-]+\.?)$/i'],
             'port' => 'required|integer|digits_between:1,5',
+            'game_port' => 'integer|digits_between:1,5',
         ]);
         $secret = Str::random();
         $data['owner_id'] = $user->id;

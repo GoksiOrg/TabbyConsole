@@ -53,8 +53,9 @@ export default function ServerRow(props: { server: Server; key: number }) {
                 </a>
             </td>
             <td>
-                <p>
-                    {props.server.host}:{props.server.port}
+                <p className="mb-1">
+                    {props.server.host}
+                    {props.server.game_port === 25565 ? `` : `:${props.server.game_port}`}
                 </p>
                 {getStoreResources.motd.length === 0 ? (
                     <p>{props.server.name}</p>
