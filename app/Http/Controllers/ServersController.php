@@ -36,4 +36,9 @@ class ServersController extends Controller
 
         return response()->json(['secret' => $secret], Response::HTTP_CREATED);
     }
+
+    public function get(Server $server): array
+    {
+        return $server->toArray();
+    }
 }
