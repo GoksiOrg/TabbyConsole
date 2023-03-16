@@ -8,7 +8,6 @@ export interface ServerResources {
     totalRam: number;
     usedRam: string;
     usedCpu: string;
-
     online: boolean;
 }
 

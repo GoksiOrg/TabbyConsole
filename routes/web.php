@@ -21,14 +21,14 @@ Route::controller(LoginController::class)->group(function () {
 });
 
 Route::middleware(['auth', 'ensure.admin'])->group(function () {
-   Route::prefix('admin')->group(function () {
-      Route::get('/', function () {
-          return view('main.base');
-      })->fallback();
-       Route::get('/{frontend}', function () {
-           return view('main.base');
-       })->where('frontend', '.+');
-   });
+    Route::prefix('admin')->group(function () {
+        Route::get('/', function () {
+            return view('main.base');
+        })->fallback();
+        Route::get('/{frontend}', function () {
+            return view('main.base');
+        })->where('frontend', '.+');
+    });
 });
 
 Route::middleware('auth')->group(function () {
