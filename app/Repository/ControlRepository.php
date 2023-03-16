@@ -32,7 +32,7 @@ class ControlRepository
 
         return json_decode($response->getBody()->__toString(), true);
     }
-
+    /*TODO: verify*/
     private function getGuzzle(): Client
     {
         return new Client([
