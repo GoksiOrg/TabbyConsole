@@ -27,6 +27,7 @@ class ServersController extends Controller
             'name' => 'required|min:3|max:32',
             'host' => ['required', 'ip|regex:/^(?!:\/\/)(?=.{1,255}$)((.{1,63}\.){1,127}(?![0-9]*$)[a-z0-9-]+\.?)$/i'],
             'port' => 'required|integer|digits_between:1,5',
+            'scheme' => 'required|in:http,https',
             'game_port' => 'integer|digits_between:1,5',
         ]);
         $secret = Str::random();
@@ -37,8 +38,20 @@ class ServersController extends Controller
         return response()->json(['secret' => $secret], Response::HTTP_CREATED);
     }
 
-    public function get(Server $server): JsonResponse
+    public function getOne(Server $server): JsonResponse
     {
         return response()->json($server->toArray());
+    }
+
+    public function delete(Server $server): Response
+    {
+        $user = request()->user();
+        if ($user->admin || $server->isOwner($user)) {
+            $server->delete();
+
+            return response()->noContent();
+        } else {
+            abort(403, "You don't have permission to delete this server !");
+        }
     }
 }

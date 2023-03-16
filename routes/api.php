@@ -20,7 +20,8 @@ Route::prefix('servers')->group(function () {
     Route::get('/', [ServersController::class, 'index']);
     Route::post('/', [ServersController::class, 'store']);
     Route::prefix('{server}')->middleware('ensure.server.access')->group(function () {
-        Route::get('/', [ServersController::class, 'get']);
+        Route::get('/', [ServersController::class, 'getOne']);
+        Route::delete('/', [ServersController::class, 'delete']);
         Route::get('resources', [ResourceController::class, 'index']);
         Route::get('websocket', [WebsocketController::class, 'token']);
     });
