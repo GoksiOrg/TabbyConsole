@@ -5,8 +5,8 @@ export interface Server {
     name: string;
     host: string;
     port: number;
-
     game_port: number;
+    scheme: "http" | "https";
     owner_id: number;
 }
 

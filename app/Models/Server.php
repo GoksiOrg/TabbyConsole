@@ -54,6 +54,8 @@ class Server extends Model
         'host',
         'port',
         'game_port',
+        'scheme',
+        'owner_id',
         'secret',
     ];
 
@@ -69,6 +71,11 @@ class Server extends Model
         return $this->hasMany(Subuser::class, 'server_id', 'id');
     }
 
+    public function isOwner(User $user): bool
+    {
+        return $this->owner->is($user);
+    }
+
     public function getDecryptedSecret(): string
     {
         return Crypt::decrypt($this->secret);
@@ -76,12 +83,12 @@ class Server extends Model
 
     public function getConnectionUrl(): string
     {
-        return "http://$this->host:$this->port";
+        return "$this->scheme://$this->host:$this->port";
     }
 
     public function getWebsocketUrl(): string
     {
-        return "ws://$this->host:$this->port";
+        return ($this->scheme === 'http' ? 'ws' : 'wss')."://$this->host:$this->port";
     }
 
     public function users(): Builder
