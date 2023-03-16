@@ -23,7 +23,7 @@ class EnsureServerAccess
         if (! ($server instanceof Server)) {
             abort(404, 'Requested server is not found !');
         }
-        if (! $user->isAdmin() && ! $server->users()->get()->contains($user->id)) {
+        if (! $user->admin && ! $server->users()->get()->contains($user->id)) {
             abort(403, "You don't have permission to operate with this server !");
         }
 

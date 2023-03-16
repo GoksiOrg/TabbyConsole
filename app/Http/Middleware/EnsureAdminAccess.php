@@ -12,14 +12,15 @@ class EnsureAdminAccess
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (Response|RedirectResponse)  $next
-     * @return Response|RedirectResponse
      */
     public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
         $user = $request->user();
-        if (!$user->isAdmin()) abort(403, "You don't have admin access");
+        if (! $user->admin) {
+            abort(403, "You don't have admin access");
+        }
+
         return $next($request);
     }
 }

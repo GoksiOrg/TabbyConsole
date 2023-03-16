@@ -79,11 +79,6 @@ class User extends Model implements AuthContract
         'admin' => 'boolean',
     ];
 
-    public function isAdmin(): bool
-    {
-        return $this->admin;
-    }
-
     public function servers(): HasMany
     {
         return $this->hasMany(Server::class, 'owner_id');
