@@ -11,16 +11,12 @@ export interface User {
 export interface UserStore {
     data?: User;
     setUserData: Action<UserStore, User>;
-    updateUserData: Action<UserStore, Partial<User>>;
 }
 
 const user: UserStore = {
     data: undefined,
     setUserData: action((state, userPayload) => {
         state.data = userPayload;
-    }),
-    updateUserData: action((state, userPayload) => {
-        state.data = { ...state.data, ...userPayload };
     }),
 };
 export default user;
