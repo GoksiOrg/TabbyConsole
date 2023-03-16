@@ -21,7 +21,7 @@ class LoginController extends Controller
             $previous = URL::previousPath();
             error_log($previous);
 
-            return redirect($previous == '/login' ? '/' : $previous); /*TODO: check da li je ovo dobro*/
+            return redirect($previous == '/login' ? '/' : $previous);
         }
 
         return view('main.base');
