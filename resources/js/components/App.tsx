@@ -8,7 +8,7 @@ import { StoreProvider } from "easy-peasy";
 import LoginContainer from "./auth/LoginContainer";
 import ServerRouter from "../routers/ServerRouter";
 import AddServer from "./server/AddServer";
-import NotFound from "./NotFound";
+import Error from "./Error";
 
 interface InfoWindow extends Window {
     User?: {
@@ -61,7 +61,17 @@ export default function App() {
                                 </Routes>
                             }
                         />
-                        <Route path="*" element={<NotFound />} />
+                        <Route
+                            path="*"
+                            element={
+                                <Error
+                                    error={{
+                                        statusCode: 404,
+                                        message: "Tabby couldn't find your resource :(",
+                                    }}
+                                />
+                            }
+                        />
                     </Routes>
                 </BrowserRouter>
             </div>
