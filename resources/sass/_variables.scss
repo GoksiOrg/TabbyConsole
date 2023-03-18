@@ -10,3 +10,11 @@ $line-height-base: 1.6;
 $pagination-bg: #1a202c;
 $pagination-color: white;
 $pagination-disabled-bg: #172642;
+
+// Position
+$position-values: (
+    0: 0,
+    50: 50%,
+    83: 83%,
+    100: 100%
+);
