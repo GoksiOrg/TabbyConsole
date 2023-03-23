@@ -1,3 +1,10 @@
+import NavBar from "../global/NavBar";
+
 export default function AddServer() {
-    return <h1>smth</h1>;
+    return (
+        <div>
+            <NavBar />
+            <h1>smth</h1>
+        </div>
+    );
 }
