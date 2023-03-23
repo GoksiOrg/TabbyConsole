@@ -8,7 +8,6 @@
 @import 'bootstrap/scss/bootstrap';
 
 .nav-header-icon {
-    @extend .text-decoration-none;
     @extend .text-white;
     @extend .nav-link;
     @extend .d-none;
@@ -79,4 +78,11 @@ $border: 15px;
         transform: scale(1.2);
         opacity: 0;
     }
+}
+
+// nav
+.nav-active {
+    @extend .pe-none;
+    border-bottom: 4px solid;
+    border-bottom-color: #0d6efd;
 }
