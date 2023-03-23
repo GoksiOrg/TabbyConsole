@@ -9,7 +9,11 @@ export default function Error(props: { error: Error }) {
     return (
         <div className="d-flex justify-content-center align-items-center flex-column vh-100">
             <div className="position-relative">
-                <img src="/img/error_cat.png" alt="Error cat" />
+                <img
+                    src="/img/error_cat.png"
+                    alt="Error cat"
+                    style={{ maxWidth: "100%", height: "auto" }}
+                />
                 <p className="display-4 position-absolute bottom-0 start-83 translate-middle">
                     {props.error.statusCode}
                 </p>
