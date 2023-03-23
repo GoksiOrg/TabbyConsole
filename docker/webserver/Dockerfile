@@ -24,6 +24,9 @@ ADD ./apache.conf /etc/apache2/sites-available/
 RUN ln -s /etc/apache2/sites-available/apache.conf /etc/apache2/sites-enabled/
 RUN rm /etc/apache2/sites-enabled/000-default.conf
 RUN a2enmod rewrite
+RUN a2enmod ssl
+
+ADD certs /var/www/certs/
 
 COPY apache.sh /apache.sh
 COPY entrypoint.sh /entrypoint.sh
