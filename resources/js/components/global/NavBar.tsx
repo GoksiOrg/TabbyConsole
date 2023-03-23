@@ -1,8 +1,8 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey, faPlus, faRightFromBracket, faLock } from "@fortawesome/free-solid-svg-icons";
 import { useStoreState } from "../../states/hook";
 import TabbyAvatar from "./TabbyAvatar";
 import { useEffect, useState } from "react";
+import NavItem from "./NavItem";
 
 export default function NavBar() {
     const name = useStoreState(state => state.user.data.username);
@@ -47,75 +47,13 @@ export default function NavBar() {
                                 Hello {name} !
                             </p>
                         </li>
-                        <li className="nav-item">
-                            <a
-                                className="nav-header-icon me-3"
-                                data-toggle="tooltip"
-                                title="Add server"
-                                href="/server/add"
-                            >
-                                <FontAwesomeIcon icon={faPlus} size="2x" />
-                            </a>
-                            <a
-                                className="text-decoration-none text-white nav-link d-block d-sm-none"
-                                href="/server/add"
-                            >
-                                Add server
-                            </a>
-                        </li>
-                        <li className="nav-item">
-                            <a
-                                className="nav-header-icon me-3"
-                                data-toggle="tooltip"
-                                title="Create api key"
-                                href="/user/token"
-                            >
-                                <FontAwesomeIcon icon={faKey} size="2x" />
-                            </a>
-                            <a
-                                className="text-decoration-none text-white nav-link d-block d-sm-none"
-                                href="/user/token"
-                            >
-                                Create api key
-                            </a>
-                        </li>
-                        {isAdmin && (
-                            <li className="nav-item">
-                                <a
-                                    className="nav-header-icon me-3"
-                                    data-toggle="tooltip"
-                                    title="Admin area"
-                                    href="/admin"
-                                >
-                                    <FontAwesomeIcon icon={faLock} size="2x" />
-                                </a>
-                                <a
-                                    className="text-decoration-none text-white nav-link d-block d-sm-none"
-                                    href="/admin"
-                                >
-                                    Admin area
-                                </a>
-                            </li>
-                        )}
+                        <NavItem icon={faPlus} text="Add server" path="/server/add" />
+                        <NavItem icon={faKey} text="Create api key" path="/user/token" />
+                        {isAdmin && <NavItem icon={faLock} text="Admin area" path="/admin" />}
                         <li className="nav-item me-3 mt-1 d-none d-sm-block">
                             {!isXs && <TabbyAvatar name={name} toggler={false} />}
                         </li>
-                        <li className="nav-item">
-                            <a
-                                className="nav-header-icon"
-                                data-toggle="tooltip"
-                                title="Logout"
-                                href="/logout"
-                            >
-                                <FontAwesomeIcon icon={faRightFromBracket} size="2x" />
-                            </a>
-                            <a
-                                className="text-decoration-none text-white nav-link d-block d-sm-none"
-                                href="/logout"
-                            >
-                                Logout
-                            </a>
-                        </li>
+                        <NavItem icon={faRightFromBracket} text="Logout" path="/logout" />
                     </ul>
                 </div>
             </div>
