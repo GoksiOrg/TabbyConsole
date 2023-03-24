@@ -32,10 +32,12 @@ class ControlRepository
 
         return json_decode($response->getBody()->__toString(), true);
     }
+
     /*TODO: verify*/
     private function getGuzzle(): Client
     {
         return new Client([
+            'verify' => config('app.env') == 'production',
             'base_uri' => $this->server->getConnectionUrl(),
             'timeout' => 5,
             'connect_timeout' => 3,
