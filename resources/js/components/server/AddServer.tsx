@@ -1,8 +1,10 @@
 import NavBar from "../global/NavBar";
 import React from "react";
 import { useRef } from "react";
+import { useStoreState } from "../../states/hook";
 
 export default function AddServer() {
+    const ownerId = useStoreState(state => state.user.data.id);
     const nameRef = useRef<HTMLInputElement>();
     const hostRef = useRef<HTMLInputElement>();
     const portRef = useRef<HTMLInputElement>();
@@ -17,7 +19,7 @@ export default function AddServer() {
         <div>
             <NavBar />
             <div className="container grid">
-                <div className="form-floating mt-5 mb-4">
+                <div className="form-floating mt-5 mb-4 g-col-6">
                     <input
                         className="form-control bg-dark text-light"
                         maxLength={32}
@@ -29,7 +31,7 @@ export default function AddServer() {
                         Server name must have between 3 and 32 chars
                     </div>
                 </div>
-                <div className="form-floating mb-4">
+                <div className="form-floating mb-4 mt-5 g-col-6">
                     <input
                         className="form-control bg-dark text-light"
                         ref={hostRef}
@@ -40,7 +42,7 @@ export default function AddServer() {
                         Hostname must be valid hostname or ip address !
                     </div>
                 </div>
-                <div className="form-floating mb-4">
+                <div className="form-floating mb-4 g-col-6">
                     <input
                         className="form-control bg-dark text-light"
                         ref={portRef}
@@ -51,7 +53,7 @@ export default function AddServer() {
                         Port must be valid number between 0 and 65535 !
                     </div>
                 </div>
-                <div className="form-floating mb-4">
+                <div className="form-floating mb-4 g-col-6">
                     <input
                         className="form-control bg-dark text-light"
                         value="25565"
@@ -63,21 +65,21 @@ export default function AddServer() {
                         Game port must be valid number between 0 and 65535 !
                     </div>
                 </div>
-                <div className="container d-flex justify-content-center align-items-center flex-column">
-                    <div className="form-check form-switch">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            role="switch"
-                            checked={isSecure()}
-                            disabled={isSecure()}
-                        />
-                        <label className="form-check-label" htmlFor="sslSwitch">
-                            SSL
-                        </label>
-                    </div>
-                    <button className="btn btn-primary btn-block mt-4">Add server</button>
+            </div>
+            <div className="container d-flex justify-content-center align-items-center flex-column">
+                <div className="form-check form-switch">
+                    <input
+                        className="form-check-input"
+                        type="checkbox"
+                        role="switch"
+                        checked={isSecure()}
+                        disabled={isSecure()}
+                    />
+                    <label className="form-check-label" htmlFor="sslSwitch">
+                        SSL
+                    </label>
                 </div>
+                <button className="btn btn-primary btn-block mt-4">Add server</button>
             </div>
         </div>
     );
