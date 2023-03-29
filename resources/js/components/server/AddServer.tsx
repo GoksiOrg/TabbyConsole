@@ -3,12 +3,14 @@ import React from "react";
 import { useRef } from "react";
 import { FormEvent } from "react";
 import validateInput from "../../helpers/validationHelper";
+import storeServer from "../../helpers/api/local/storeServer";
 
 export default function AddServer() {
     const nameRef = useRef<HTMLInputElement>();
     const hostRef = useRef<HTMLInputElement>();
     const portRef = useRef<HTMLInputElement>();
     const gamePortRef = useRef<HTMLInputElement>();
+    const sslRef = useRef<HTMLInputElement>();
     const isSecure = () => {
         return window.location.protocol === "https:";
     };
@@ -18,9 +20,20 @@ export default function AddServer() {
 
     const proceedServerStoreReq = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if (!validate(nameRef.current, hostRef.current, portRef.current, gamePortRef.current))
-            return;
+        const name = nameRef.current;
+        const host = hostRef.current;
+        const port = portRef.current;
+        const gamePort = gamePortRef.current;
+        if (!validate(name, host, port, gamePort)) return;
+        storeServer({
+            name: name.value,
+            host: host.value,
+            port: Number(port.value),
+            game_port: Number(gamePort.value),
+            scheme: sslRef.current.checked ? "https" : "http",
+        });
     };
+    /*TODO: gameport changable*/
     return (
         <div>
             <NavBar />
@@ -80,6 +93,7 @@ export default function AddServer() {
                             className="form-check-input"
                             type="checkbox"
                             role="switch"
+                            ref={sslRef}
                             checked={isSecure()}
                             disabled={isSecure()}
                         />
