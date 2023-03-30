@@ -4,8 +4,13 @@ import { useRef } from "react";
 import { FormEvent } from "react";
 import validateInput from "../../helpers/validationHelper";
 import storeServer from "../../helpers/api/local/storeServer";
+import SecretModal from "./SecretModal";
+import { useState } from "react";
+import { useEffect } from "react";
+import bootstrap from "bootstrap";
 
 export default function AddServer() {
+    const [token, setToken] = useState<string>("");
     const nameRef = useRef<HTMLInputElement>();
     const hostRef = useRef<HTMLInputElement>();
     const portRef = useRef<HTMLInputElement>();
@@ -18,6 +23,10 @@ export default function AddServer() {
         e.target.classList.remove("is-invalid");
     };
 
+    useEffect(() => {
+        const modal = new bootstrap.Modal("#secretModal");
+        modal.show();
+    }, [token]);
     const proceedServerStoreReq = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const name = nameRef.current;
@@ -31,12 +40,17 @@ export default function AddServer() {
             port: Number(port.value),
             game_port: Number(gamePort.value),
             scheme: sslRef.current.checked ? "https" : "http",
-        });
+        })
+            .then(response => {
+                setToken(response.secret);
+            })
+            .catch(err => {});
     };
     /*TODO: gameport changable*/
     return (
         <div>
             <NavBar />
+            <SecretModal secret={token} />
             <form onSubmit={proceedServerStoreReq}>
                 <div className="container grid">
                     <div className="form-floating mt-5 mb-4 g-col-6">
@@ -101,7 +115,12 @@ export default function AddServer() {
                             SSL
                         </label>
                     </div>
-                    <button type="submit" className="btn btn-primary btn-block mt-4">
+                    <button
+                        type="submit"
+                        className="btn btn-primary btn-block mt-4"
+                        data-bs-toggle="modal"
+                        data-bs-target="#secretModal"
+                    >
                         Add server
                     </button>
                 </div>
