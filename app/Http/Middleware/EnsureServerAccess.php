@@ -16,7 +16,7 @@ class EnsureServerAccess
      *
      * @param Closure(Request): (Response|RedirectResponse) $next
      */
-    public function handle(Request $request, Closure $next): JsonResponse
+    public function handle(Request $request, Closure $next): JsonResponse | Response
     {
         $user = $request->user();
         $server = $request->route()->parameter('server');
