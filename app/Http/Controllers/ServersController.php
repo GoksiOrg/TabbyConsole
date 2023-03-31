@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Server;
+use App\Rules\FqdnRule;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -25,7 +26,7 @@ class ServersController extends Controller
         $user = $request->user();
         $data = $request->validate([
             'name' => 'required|min:3|max:32',
-            'host' => ['required', 'ip|regex:/^(?!:\/\/)(?=.{1,255}$)((.{1,63}\.){1,127}(?![0-9]*$)[a-z0-9-]+\.?)$/i'],
+            'host' => ['required', new FqdnRule],
             'port' => 'required|integer|digits_between:1,5',
             'scheme' => 'required|in:http,https',
             'game_port' => 'integer|digits_between:1,5',
@@ -33,9 +34,9 @@ class ServersController extends Controller
         $secret = Str::random();
         $data['owner_id'] = $user->id;
         $data['secret'] = Crypt::encrypt($secret);
-        Server::create($data);
+        $server = Server::create($data);
 
-        return response()->json(['secret' => $secret], Response::HTTP_CREATED);
+        return response()->json(['id' => $server->id, 'secret' => $secret], Response::HTTP_CREATED);
     }
 
     public function getOne(Server $server): JsonResponse
