@@ -16,7 +16,7 @@ export interface SecretResponse {
 export default function storeServer(server: StoreServerRequest): Promise<SecretResponse> {
     return new Promise((resolve, reject) => {
         http.post("/api/servers", server)
-            .then(result => resolve(result.data))
+            .then(result => { resolve(result.data); })
             .catch(reject);
     });
 }

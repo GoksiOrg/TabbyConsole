@@ -1,12 +1,10 @@
 // noinspection JSNonASCIINames
 
-import { createElement, CSSProperties, ReactElement, ReactNode } from "react";
+import { createElement, type CSSProperties, type ReactElement, type ReactNode } from "react";
 
 const colorCodeRegex = /(§[0-9a-fA-FklmnorKLMNOR])/g;
-/*TODO: &k*/
-interface CssMap {
-    [key: string]: CSSProperties;
-}
+/* TODO: &k */
+type CssMap = Record<string, CSSProperties>;
 const styleCodes: CssMap = {
     "§l": { fontWeight: "bold" },
     "§m": { textDecoration: "line-through" },
@@ -37,7 +35,7 @@ function parseMotd(motd: string): ReactElement {
     const splittedText = motd.split(colorCodeRegex);
     let colorHex = "";
     let fontStyle: CSSProperties = null;
-    let resultHtml: ReactNode[] = [];
+    const resultHtml: ReactNode[] = [];
     splittedText.forEach((item, index) => {
         const lowerCase = item.toLowerCase();
         if (Object.hasOwn(colorCodes, lowerCase)) {

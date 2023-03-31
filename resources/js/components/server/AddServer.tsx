@@ -1,14 +1,15 @@
 import NavBar from "../global/NavBar";
-import React from "react";
-import { useRef } from "react";
-import { FormEvent } from "react";
-import { Error } from "../Error";
+import { useRef , useState , useEffect } from "react";
+import type React, { FormEvent  } from "react";
+
+
+import { type Error } from "../Error";
 import validateInput from "../../helpers/validationHelper";
-import storeServer, { SecretResponse } from "../../helpers/api/local/storeServer";
+import storeServer, { type SecretResponse } from "../../helpers/api/local/storeServer";
 import TabbyModal from "./TabbyModal";
-import { useState } from "react";
-import { useEffect } from "react";
-import { AxiosError } from "axios";
+
+
+import { type AxiosError } from "axios";
 import { Modal } from "bootstrap";
 
 export default function AddServer() {
@@ -53,7 +54,7 @@ export default function AddServer() {
             })
             .catch((err: AxiosError) => {
                 console.log(err);
-                // @ts-ignore
+                // @ts-expect-error
                 setError({ message: err.response.data.message, statusCode: err.response.status });
             });
     };

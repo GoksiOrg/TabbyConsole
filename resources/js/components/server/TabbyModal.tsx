@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 
 export default function TabbyModal(props: { title: string; children: React.ReactNode }) {
     return (

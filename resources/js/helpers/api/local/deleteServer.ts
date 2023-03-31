@@ -1,5 +1,5 @@
 import http from "../../httpService";
-import { AxiosResponse } from "axios";
+import { type AxiosResponse } from "axios";
 
 export default function deleteServer(id: number): Promise<AxiosResponse> {
     return new Promise<AxiosResponse>((resolve, reject) => {

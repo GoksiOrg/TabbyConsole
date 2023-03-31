@@ -1,4 +1,4 @@
-import { Server } from "./getServersPaginator";
+import { type Server } from "./getServersPaginator";
 import http from "../../httpService";
 
 export default function getServer(id: number): Promise<Server> {
