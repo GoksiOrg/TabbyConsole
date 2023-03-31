@@ -8,7 +8,7 @@ import { StoreProvider } from "easy-peasy";
 import LoginContainer from "./auth/LoginContainer";
 import ServerRouter from "../routers/ServerRouter";
 import AddServer from "./server/AddServer";
-import Error from "./Error";
+import Error from "./ErrorStatus";
 
 interface InfoWindow extends Window {
     User?: {

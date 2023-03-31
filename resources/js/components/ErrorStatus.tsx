@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 
-export interface Error {
+export interface ErrorStatus {
     statusCode: number;
     message: string;
 }
-export default function Error(props: { error: Error }) {
+export default function Error(props: { error: ErrorStatus }) {
     const navigate = useNavigate();
     return (
         <div className="d-flex justify-content-center align-items-center flex-column vh-100">

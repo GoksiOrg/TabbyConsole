@@ -1,20 +1,19 @@
 import NavBar from "../global/NavBar";
-import { useRef , useState , useEffect } from "react";
-import type React, { FormEvent  } from "react";
+import { useRef, useState, useEffect } from "react";
+import type React from "react";
+import type { FormEvent } from "react";
 
-
-import { type Error } from "../Error";
+import { type ErrorStatus } from "../ErrorStatus";
 import validateInput from "../../helpers/validationHelper";
 import storeServer, { type SecretResponse } from "../../helpers/api/local/storeServer";
 import TabbyModal from "./TabbyModal";
-
 
 import { type AxiosError } from "axios";
 import { Modal } from "bootstrap";
 
 export default function AddServer() {
     const [response, setResponse] = useState<SecretResponse>({ id: -1, secret: "" });
-    const [error, setError] = useState<Error>();
+    const [error, setError] = useState<ErrorStatus>();
     const isMounted = useRef(false);
     const nameRef = useRef<HTMLInputElement>();
     const hostRef = useRef<HTMLInputElement>();
