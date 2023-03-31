@@ -5,10 +5,24 @@ import getResources, {
     type ServerResources,
 } from "../../helpers/api/local/getResources";
 import Motd from "../../helpers/Motd";
+import { useStoreState } from "../../states/hook";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import deleteServer from "../../helpers/api/local/deleteServer";
 /* TODO: make scheme configurable, have to change plugin to support https also */
 export default function ServerRow(props: { server: Server; key: number }) {
+    const { id, admin } = useStoreState(state => state.user.data);
     const [getStoreResources, setStoreResources] = useState<ServerResources>(InitialResources);
     const [isLoading, setLoading] = useState<boolean>(true);
+    const canDeleteServer = () => props.server.owner_id === id || admin;
+
+    const handleDelete = () => {
+        deleteServer(props.server.id)
+            .then(res => {
+                if (res.status === 204) window.location.reload();
+            })
+            .catch(console.log);
+    };
     const getResource = () => {
         getResources(props.server.id)
             .then(resources => {
@@ -86,6 +100,16 @@ export default function ServerRow(props: { server: Server; key: number }) {
                         title="Offline"
                     ></span>
                 )}
+            </td>
+            <td>
+                <span
+                    className={canDeleteServer() ? "delete" : "delete-disabled"}
+                    data-toggle="tooltip"
+                    title="Delete server"
+                    onClick={handleDelete}
+                >
+                    <FontAwesomeIcon icon={faTrash} />
+                </span>
             </td>
         </tr>
     );

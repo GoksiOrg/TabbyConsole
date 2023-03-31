@@ -52,6 +52,7 @@ export default function MainContainer() {
                             <th scope="col">CPU Usage</th>
                             <th scope="col">Players</th>
                             <th scope="col">Status</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
