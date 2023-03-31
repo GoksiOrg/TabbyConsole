@@ -2,15 +2,18 @@ import NavBar from "../global/NavBar";
 import React from "react";
 import { useRef } from "react";
 import { FormEvent } from "react";
+import { Error } from "../Error";
 import validateInput from "../../helpers/validationHelper";
-import storeServer from "../../helpers/api/local/storeServer";
-import SecretModal from "./SecretModal";
+import storeServer, { SecretResponse } from "../../helpers/api/local/storeServer";
+import TabbyModal from "./TabbyModal";
 import { useState } from "react";
 import { useEffect } from "react";
-import bootstrap from "bootstrap";
+import { AxiosError } from "axios";
+import { Modal } from "bootstrap";
 
 export default function AddServer() {
-    const [token, setToken] = useState<string>("");
+    const [response, setResponse] = useState<SecretResponse>({ id: 0, secret: "" });
+    const [error, setError] = useState<Error>();
     const nameRef = useRef<HTMLInputElement>();
     const hostRef = useRef<HTMLInputElement>();
     const portRef = useRef<HTMLInputElement>();
@@ -24,9 +27,11 @@ export default function AddServer() {
     };
 
     useEffect(() => {
-        const modal = new bootstrap.Modal("#secretModal");
-        modal.show();
-    }, [token]);
+        if (response.id !== 0 || error !== undefined) {
+            const modal = Modal.getOrCreateInstance("#addServerModal");
+            modal.show();
+        }
+    }, [response, error]);
     const proceedServerStoreReq = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const name = nameRef.current;
@@ -42,15 +47,39 @@ export default function AddServer() {
             scheme: sslRef.current.checked ? "https" : "http",
         })
             .then(response => {
-                setToken(response.secret);
+                setResponse(response);
             })
-            .catch(err => {});
+            .catch((err: AxiosError) => {
+                console.log(err);
+                // @ts-ignore
+                setError({ message: err.response.data.message, statusCode: err.response.status });
+            });
     };
-    /*TODO: gameport changable*/
+
     return (
         <div>
             <NavBar />
-            <SecretModal secret={token} />
+            {error === undefined ? (
+                <TabbyModal title="Server added !">
+                    <p>
+                        Only one thing is left, enter command bellow into your minecraft console to
+                        setup TabbyControl plugin !
+                    </p>
+                    <input
+                        className="form-control bg-dark text-white overflow-scroll"
+                        type="text"
+                        value={`/tabby setup ${response.id} `}
+                        disabled
+                        readOnly
+                    />
+                </TabbyModal>
+            ) : (
+                <TabbyModal title={"Error !"}>
+                    <p>Unexpected error while creating server !</p>
+                    <p>Status code: {error.statusCode}</p>
+                    <p>Message: {error.message}</p>
+                </TabbyModal>
+            )}
             <form onSubmit={proceedServerStoreReq}>
                 <div className="container grid">
                     <div className="form-floating mt-5 mb-4 g-col-6">
@@ -91,7 +120,7 @@ export default function AddServer() {
                     <div className="form-floating mb-4 g-col-6">
                         <input
                             className="form-control bg-dark text-light"
-                            value="25565"
+                            defaultValue="25565"
                             ref={gamePortRef}
                             onChange={handleOnChange}
                         />
@@ -115,12 +144,7 @@ export default function AddServer() {
                             SSL
                         </label>
                     </div>
-                    <button
-                        type="submit"
-                        className="btn btn-primary btn-block mt-4"
-                        data-bs-toggle="modal"
-                        data-bs-target="#secretModal"
-                    >
+                    <button type="submit" className="btn btn-primary btn-block mt-4">
                         Add server
                     </button>
                 </div>
@@ -151,5 +175,5 @@ function validate(
     const portChecked = validateInput(portField, checkPort);
     const gamePortChecked = validateInput(gamePortField, checkPort);
 
-    return nameChecked || hostChecked || portChecked || gamePortChecked;
+    return nameChecked && hostChecked && portChecked && gamePortChecked;
 }
