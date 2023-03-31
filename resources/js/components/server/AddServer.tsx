@@ -12,10 +12,10 @@ import { AxiosError } from "axios";
 import { Modal } from "bootstrap";
 
 export default function AddServer() {
-    const [response, setResponse] = useState<SecretResponse>({ id: 0, secret: "" });
+    const [response, setResponse] = useState<SecretResponse>({ id: -1, secret: "" });
     const [error, setError] = useState<Error>();
     const isMounted = useRef(false);
-    const nameRef = useRef<HTMLInputElement>(); //change
+    const nameRef = useRef<HTMLInputElement>();
     const hostRef = useRef<HTMLInputElement>();
     const portRef = useRef<HTMLInputElement>();
     const gamePortRef = useRef<HTMLInputElement>();
@@ -62,7 +62,7 @@ export default function AddServer() {
         <div>
             <NavBar />
             {error === undefined ? (
-                response.id !== 0 && (
+                response.id !== -1 && (
                     <TabbyModal title="Server added !">
                         <p>
                             Only one thing is left, enter command bellow into your minecraft console
