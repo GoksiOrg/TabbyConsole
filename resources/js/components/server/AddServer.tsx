@@ -14,7 +14,8 @@ import { Modal } from "bootstrap";
 export default function AddServer() {
     const [response, setResponse] = useState<SecretResponse>({ id: 0, secret: "" });
     const [error, setError] = useState<Error>();
-    const nameRef = useRef<HTMLInputElement>();
+    const isMounted = useRef(false);
+    const nameRef = useRef<HTMLInputElement>(); //change
     const hostRef = useRef<HTMLInputElement>();
     const portRef = useRef<HTMLInputElement>();
     const gamePortRef = useRef<HTMLInputElement>();
@@ -27,10 +28,11 @@ export default function AddServer() {
     };
 
     useEffect(() => {
-        if (response.id !== 0 || error !== undefined) {
+        if (isMounted.current) {
             const modal = Modal.getOrCreateInstance("#addServerModal");
             modal.show();
-        }
+            (document.getElementById("requestForm") as HTMLFormElement).reset();
+        } else isMounted.current = true;
     }, [response, error]);
     const proceedServerStoreReq = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -60,19 +62,21 @@ export default function AddServer() {
         <div>
             <NavBar />
             {error === undefined ? (
-                <TabbyModal title="Server added !">
-                    <p>
-                        Only one thing is left, enter command bellow into your minecraft console to
-                        setup TabbyControl plugin !
-                    </p>
-                    <input
-                        className="form-control bg-dark text-white overflow-scroll"
-                        type="text"
-                        value={`/tabby setup ${response.id} `}
-                        disabled
-                        readOnly
-                    />
-                </TabbyModal>
+                response.id !== 0 && (
+                    <TabbyModal title="Server added !">
+                        <p>
+                            Only one thing is left, enter command bellow into your minecraft console
+                            to setup TabbyControl plugin !
+                        </p>
+                        <input
+                            className="form-control bg-dark text-white overflow-scroll"
+                            type="text"
+                            value={`/tabby setup ${response.id} 0.0.0.0 ${portRef.current.value} ${window.location.origin} ${sslRef.current.checked} ${response.secret}`}
+                            disabled
+                            readOnly
+                        />
+                    </TabbyModal>
+                )
             ) : (
                 <TabbyModal title={"Error !"}>
                     <p>Unexpected error while creating server !</p>
@@ -80,7 +84,7 @@ export default function AddServer() {
                     <p>Message: {error.message}</p>
                 </TabbyModal>
             )}
-            <form onSubmit={proceedServerStoreReq}>
+            <form onSubmit={proceedServerStoreReq} id="requestForm">
                 <div className="container grid">
                     <div className="form-floating mt-5 mb-4 g-col-6">
                         <input
