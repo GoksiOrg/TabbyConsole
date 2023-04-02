@@ -3,7 +3,7 @@ import { useRef, useState, useEffect } from "react";
 import type React from "react";
 import type { FormEvent } from "react";
 
-import { type ErrorStatus } from "../ErrorStatus";
+import { type ErrorStatus } from "../Error";
 import validateInput from "../../helpers/validationHelper";
 import storeServer, { type SecretResponse } from "../../helpers/api/local/storeServer";
 import TabbyModal from "./TabbyModal";
