@@ -6,9 +6,12 @@ import "bootstrap";
 import { store } from "../states/export";
 import { StoreProvider } from "easy-peasy";
 import LoginContainer from "./auth/LoginContainer";
-import ServerRouter from "../routers/ServerRouter";
 import AddServer from "./server/AddServer";
 import Error from "./Error";
+import { lazy } from "react";
+import { ServerStore } from "../states/server";
+
+const ServerRouter = lazy(() => import("../routers/ServerRouter"));
 
 interface InfoWindow extends Window {
     User?: {
@@ -44,20 +47,22 @@ export default function App() {
                                 </Suspense>
                             }
                         />
-                        <Route
-                            path="/login/"
-                            element={
-                                <Suspense fallback={<Loading />}>
-                                    <LoginContainer />
-                                </Suspense>
-                            }
-                        />
+                        <Route path="/login/" element={<LoginContainer />} />
                         <Route
                             path="/server/*"
                             element={
                                 <Routes>
                                     <Route path="/add" element={<AddServer />} />
-                                    <Route path=":id/*" element={<ServerRouter />} />
+                                    <Route
+                                        path=":id/*"
+                                        element={
+                                            <Suspense fallback={<Loading />}>
+                                                <ServerStore.Provider>
+                                                    <ServerRouter />
+                                                </ServerStore.Provider>
+                                            </Suspense>
+                                        }
+                                    />
                                 </Routes>
                             }
                         />
