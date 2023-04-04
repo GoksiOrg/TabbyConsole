@@ -1,10 +1,8 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
-import { ErrorStatus } from "../components/Error";
+import { useState , useEffect } from "react";
+import Error, { type ErrorStatus } from "../components/Error";
 import { ServerStore } from "../states/server";
-import { useEffect } from "react";
-import { AxiosError } from "axios";
-import Error from "../components/Error";
+import { type AxiosError } from "axios";
 import Loading from "../components/Loading";
 import NavBar from "../components/global/NavBar";
 

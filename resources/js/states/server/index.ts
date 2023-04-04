@@ -1,11 +1,8 @@
 import { createContextStore } from "easy-peasy";
 import { type Server } from "../../helpers/api/local/getServersPaginator";
-import { Action } from "easy-peasy";
-import { action } from "easy-peasy";
-import { Thunk } from "easy-peasy";
-import { thunk } from "easy-peasy";
+import { type Action, action, type Thunk, thunk } from "easy-peasy";
 import getServer from "../../helpers/api/local/getServer";
-/*TODO: permissions*/
+/* TODO: permissions */
 interface ServerData {
     server?: Server;
 

@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Loading from "./Loading";
 import MainContainer from "./main/MainContainer";
@@ -8,7 +8,6 @@ import { StoreProvider } from "easy-peasy";
 import LoginContainer from "./auth/LoginContainer";
 import AddServer from "./server/AddServer";
 import Error from "./Error";
-import { lazy } from "react";
 import { ServerStore } from "../states/server";
 
 const ServerRouter = lazy(() => import("../routers/ServerRouter"));
