@@ -21,12 +21,12 @@
         "noEmit": true,
         "noFallthroughCasesInSwitch": true,
         "noImplicitOverride": true,
-        "noImplicitReturns": true,
+        "noImplicitReturns": false,
         "noPropertyAccessFromIndexSignature": false,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "strict": false,
-        "useDefineForClassFields": true
+        "useDefineForClassFields": true,
     },
     "include": [
         "./resources/js/**/*",
