@@ -3,7 +3,7 @@ export default function validateInput(
     rule: (value: string) => boolean
 ): boolean {
     const value = input.value;
-    if (value === undefined || !rule(value)) {
+    if (!value || !rule(value)) {
         input.classList.add("is-invalid");
         return false;
     }

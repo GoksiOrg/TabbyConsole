@@ -1,10 +1,12 @@
 import { useParams } from "react-router-dom";
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 import Error, { type ErrorStatus } from "../components/Error";
 import { ServerStore } from "../states/server";
 import { type AxiosError } from "axios";
 import Loading from "../components/Loading";
 import NavBar from "../components/global/NavBar";
+import { Routes } from "react-router-dom";
+import SubNavBar from "../components/server/SubNavBar";
 
 export default function ServerRouter() {
     const params = useParams<"id">();
@@ -33,13 +35,16 @@ export default function ServerRouter() {
         <>
             <NavBar />
             {!name ? (
-                error === undefined ? (
+                !error ? (
                     <Loading />
                 ) : (
                     <Error error={error} />
                 )
             ) : (
-                <h1>h11 {name}</h1>
+                <>
+                    <SubNavBar />
+                    <Routes></Routes>
+                </>
             )}
         </>
     );
