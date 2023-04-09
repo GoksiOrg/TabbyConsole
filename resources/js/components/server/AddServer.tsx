@@ -71,7 +71,7 @@ export default function AddServer() {
                         <input
                             className="form-control bg-dark text-white overflow-scroll"
                             type="text"
-                            value={`/tabby setup ${response.id} 0.0.0.0 ${portRef.current.value} ${window.location.origin} ${sslRef.current.checked} ${response.secret}`}
+                            value={`/tabby setup ${response.id} ${portRef.current.value} ${window.location.origin} ${sslRef.current.checked} ${response.secret}`}
                             disabled
                             readOnly
                         />
