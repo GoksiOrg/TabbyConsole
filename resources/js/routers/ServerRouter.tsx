@@ -1,11 +1,10 @@
-import { useParams } from "react-router-dom";
+import { useParams, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Error, { type ErrorStatus } from "../components/Error";
 import { ServerStore } from "../states/server";
 import { type AxiosError } from "axios";
 import Loading from "../components/Loading";
 import NavBar from "../components/global/NavBar";
-import { Routes } from "react-router-dom";
 import SubNavBar from "../components/server/SubNavBar";
 
 export default function ServerRouter() {
