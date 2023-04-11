@@ -39,9 +39,19 @@ class ServersController extends Controller
         return response()->json(['id' => $server->id, 'secret' => $secret], Response::HTTP_CREATED);
     }
 
-    public function getOne(Server $server): JsonResponse
+    public function getOne(Server $server, Request $request): JsonResponse
     {
-        return response()->json($server->toArray());
+        $serverData = $server->toArray();
+        $user = $request->user();
+        if ($server->isOwner($user)) {
+            $serverData['permissions'] = -1; // indicates that user is server owner and have all permissions
+        } else {
+            $serverData['permissions'] = $user->subservers
+                ->where('server_id', '=', $server->id)
+                ->first()->permission;
+        }
+
+        return response()->json($serverData);
     }
 
     public function delete(Server $server): Response
