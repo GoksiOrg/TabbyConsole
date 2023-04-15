@@ -5,7 +5,10 @@ import { ServerStore } from "../states/server";
 import { type AxiosError } from "axios";
 import Loading from "../components/Loading";
 import NavBar from "../components/global/NavBar";
-import SubNavBar from "../components/server/SubNavBar";
+import SubNavBar from "../components/server/panel/nav/SubNavBar";
+import { Route } from "react-router-dom";
+import Dashboard from "../components/server/panel/Dashboard";
+import { Navigate } from "react-router-dom";
 
 export default function ServerRouter() {
     const params = useParams<"id">();
@@ -42,7 +45,10 @@ export default function ServerRouter() {
             ) : (
                 <>
                     <SubNavBar />
-                    <Routes></Routes>
+                    <Routes>
+                        <Route path="/" element={<Dashboard />} />
+                        <Route path="*" element={<Navigate to={`/server/${params.id}`} />} />
+                    </Routes>
                 </>
             )}
         </>
