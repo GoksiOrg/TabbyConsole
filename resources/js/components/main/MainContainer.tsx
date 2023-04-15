@@ -43,7 +43,7 @@ export default function MainContainer() {
         <>
             <NavBar />
             <div className="container-md table-responsive-md">
-                <table className="table text-white mb-3 align-middle">
+                <table className="table text-white mb-3 align-middle mt-3">
                     <thead>
                         <tr>
                             <th scope="col">Icon</th>

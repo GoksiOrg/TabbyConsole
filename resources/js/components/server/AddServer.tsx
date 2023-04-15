@@ -84,7 +84,7 @@ export default function AddServer() {
                     <p>Message: {error.message}</p>
                 </TabbyModal>
             )}
-            <form onSubmit={proceedServerStoreReq} id="requestForm">
+            <form onSubmit={proceedServerStoreReq} id="requestForm" className="mt-3">
                 <div className="container grid">
                     <div className="form-floating mt-5 mb-4 g-col-6">
                         <input

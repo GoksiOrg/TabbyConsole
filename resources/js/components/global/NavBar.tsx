@@ -22,7 +22,7 @@ export default function NavBar() {
 
     return (
         <nav
-            className="navbar navbar-expand-sm mb-3"
+            className="navbar navbar-expand-sm"
             style={{ backgroundColor: "#1a202c" }}
             aria-label="Main navigation"
         >
