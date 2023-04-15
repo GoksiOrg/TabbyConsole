@@ -87,6 +87,15 @@ $border: 15px;
     border-bottom-color: #0d6efd;
     opacity: 75%;
 }
+
+// subNav
+.sub-active {
+    @extend .pe-none;
+    @extend .active;
+    @extend .disabled;
+    border-bottom: 2px solid;
+    border-bottom-color: #0d6efd;
+}
 // delete icon
 .delete {
     &:hover {
